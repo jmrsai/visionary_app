@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/app_state.dart';
-import '../models/chat_models.dart';
+import '../models/chat_message.dart';
 import '../services/ai_chat_service.dart';
-import '../theme/app_theme.dart';
 import '../widgets/chat_message_widget.dart';
 import '../widgets/typing_indicator.dart';
 import '../widgets/image_capture_widget.dart';
@@ -235,8 +234,8 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
             margin: const EdgeInsets.all(16),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
-              border: Border.all(color: Colors.blue.withOpacity(0.3)),
+              color: Colors.blue.withAlpha(25),
+              border: Border.all(color: Colors.blue.withAlpha(77)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -278,6 +277,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
                 }
                 return ChatMessageWidget(
                   message: _messages[index],
+                  onSuggestionTap: (suggestion) {  },
                   onQuickReply: _handleQuickReply,
                 );
               },
@@ -302,7 +302,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
-          top: BorderSide(color: Colors.grey.withOpacity(0.2)),
+          top: BorderSide(color: Colors.grey.withAlpha(51)),
         ),
       ),
       child: Column(
@@ -319,7 +319,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: Colors.grey.withOpacity(0.1),
+                    fillColor: Colors.grey.withAlpha(25),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 12,
@@ -393,7 +393,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.withOpacity(0.3)),
+          border: Border.all(color: Colors.grey.withAlpha(77)),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(

@@ -15,7 +15,7 @@ enum ViewType {
 
 class AppState extends ChangeNotifier {
   bool _showOnboarding = true;
-  String _userName = 'Alex';
+  String _userName = 'sai';
   ViewType _currentView = ViewType.dashboard;
 
   bool get showOnboarding => _showOnboarding;

@@ -6,7 +6,7 @@ import 'screens/main_navigation_screen.dart';
 import 'theme/app_theme.dart';
 
 void main() {
-  runApp(const visionaryApp());
+  runApp(const OculusApp());
 }
 
 class OculusApp extends StatelessWidget {
