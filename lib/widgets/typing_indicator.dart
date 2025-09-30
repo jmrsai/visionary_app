@@ -81,7 +81,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
             width: 32,
             height: 32,
             decoration: BoxDecoration(
-              color: Colors.blue.withAlpha(0.1),
+              color: Colors.blue.withAlpha(25),
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -95,7 +95,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.grey.withAlpha(0.1),
+              color: Colors.grey.withAlpha(25),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),

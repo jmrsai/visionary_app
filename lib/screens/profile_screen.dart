@@ -61,7 +61,7 @@ class ProfileScreen extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             isDark ? AppTheme.primaryBlue.withAlpha(0.2) : AppTheme.primaryBlue,
-            isDark ? AppTheme.accentGreen.withAlpha(0.3) : AppTheme.accentGreen,
+            isDark ? AppTheme.accentGreen.withAlpha(77) : AppTheme.accentGreen,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -69,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: isDark
-                ? AppTheme.primaryBlue.withAlpha(0.1)
+                ? AppTheme.primaryBlue.withAlpha(25)
                 : AppTheme.primaryBlue.withAlpha(0.2),
             blurRadius: 15,
             offset: const Offset(0, 5),

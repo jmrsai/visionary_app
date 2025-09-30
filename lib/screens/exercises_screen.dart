@@ -117,7 +117,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
         gradient: LinearGradient(
           colors: isDark
               ? [AppTheme.accentGreen.withAlpha(0.2), AppTheme.success.withAlpha(0.2)]
-              : [AppTheme.success.withAlpha(0.1), AppTheme.accentGreen.withAlpha(0.1)],
+              : [AppTheme.success.withAlpha(25), AppTheme.accentGreen.withAlpha(25)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -163,7 +163,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: (isDark ? AppTheme.accentGreen : AppTheme.success).withAlpha(0.1),
+              color: (isDark ? AppTheme.accentGreen : AppTheme.success).withAlpha(25),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -234,7 +234,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
         ),
         boxShadow: [
           BoxShadow(
-            color: exercise.color.withAlpha(0.1),
+            color: exercise.color.withAlpha(25),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -249,7 +249,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
                 width: 50,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: exercise.color.withAlpha(0.1),
+                  color: exercise.color.withAlpha(25),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
@@ -327,7 +327,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withAlpha(0.1),
+        color: color.withAlpha(25),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(
@@ -400,7 +400,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: exercise.color.withAlpha(0.1),
+                    color: exercise.color.withAlpha(25),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Icon(

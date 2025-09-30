@@ -172,7 +172,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
         color: Theme.of(context).cardColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(0.05),
+            color: Colors.black.withAlpha(13),
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),

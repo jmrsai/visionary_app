@@ -76,19 +76,19 @@ class _DailyTipCardState extends State<DailyTipCard> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            currentTip.color.withAlpha(0.1),
-            currentTip.color.withAlpha(0.05),
+            currentTip.color.withAlpha(25),
+            currentTip.color.withAlpha(13),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: currentTip.color.withAlpha(0.3),
+          color: currentTip.color.withAlpha(77),
         ),
         boxShadow: [
           BoxShadow(
-            color: currentTip.color.withAlpha(0.1),
+            color: currentTip.color.withAlpha(25),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -184,7 +184,7 @@ class _DailyTipCardState extends State<DailyTipCard> {
                 decoration: BoxDecoration(
                   color: index == _currentTipIndex
                       ? currentTip.color
-                      : currentTip.color.withAlpha(0.3),
+                      : currentTip.color.withAlpha(77),
                   borderRadius: BorderRadius.circular(3),
                 ),
               ),

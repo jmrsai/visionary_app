@@ -9,7 +9,7 @@ import '../widgets/quick_stats_widget.dart';
 import '../widgets/daily_tip_card.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -145,14 +145,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isDark
-              ? [AppTheme.accentGreen.withAlpha(0.2), AppTheme.primaryBlue.withAlpha(0.2)]
-              : [AppTheme.primaryBlue.withAlpha(0.1), AppTheme.accentGreen.withAlpha(0.1)],
+              ? [AppTheme.accentGreen.withAlpha(20), AppTheme.primaryBlue.withAlpha(20)]
+              : [AppTheme.primaryBlue.withAlpha(25), AppTheme.accentGreen.withAlpha(25)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withAlpha(0.2),
+          color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withAlpha(20),
         ),
       ),
       child: Column(
@@ -264,9 +264,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         width: 120,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: color.withAlpha(0.1),
+          color: color.withAlpha(25),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: color.withAlpha(0.3)),
+          border: Border.all(color: color.withAlpha(77)),
         ),
         child: Column(
           children: [

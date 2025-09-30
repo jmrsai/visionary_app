@@ -133,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
             color: Colors.white.withAlpha(0.2),
             borderRadius: BorderRadius.circular(25),
             border: Border.all(
-              color: Colors.white.withAlpha(0.3),
+              color: Colors.white.withAlpha(77),
               width: 2,
             ),
           ),
@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(0.1),
+            color: Colors.black.withAlpha(25),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),

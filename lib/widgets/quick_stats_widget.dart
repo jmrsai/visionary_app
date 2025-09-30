@@ -20,8 +20,8 @@ class QuickStatsWidget extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: isDark
-                ? Colors.black.withAlpha(0.1)
-                : Colors.grey.withAlpha(0.1),
+                ? Colors.black.withAlpha(25)
+                : Colors.grey.withAlpha(25),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

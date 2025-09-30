@@ -10,7 +10,6 @@ import 'package:visionary/screens/squint_assessment_screen.dart' as squint_asses
 import 'package:visionary/screens/disease_detection_screen.dart' as disease_detection;
 import 'package:visionary/screens/kids_zone_screen.dart' as kids_zone;
 import '../providers/app_state_provider.dart';
-import '../theme/app_theme.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -47,40 +46,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppStateProvider>(context);
-    final viewType = appState.currentView;
-
-    Widget currentScreen;
-    switch (viewType) {
-      case ViewType.dashboard:
-        currentScreen = _screens[appState.currentNavIndex];
-        break;
-      case ViewType.symptomChecker:
-        currentScreen = const AIHealthChatbotScreen();
-        break;
-      case ViewType.visionTests:
-        currentScreen = const VisionTestsScreen();
-        break;
-      case ViewType.exercises:
-        currentScreen = const ExercisesScreen();
-        break;
-      case ViewType.sportsVision:
-        currentScreen = const sports_vision.SportsVisionScreen();
-        break;
-      case ViewType.squintAssessment:
-        currentScreen = const squint_assessment.SquintAssessmentScreen();
-        break;
-      case ViewType.diseaseDetection:
-        currentScreen = const disease_detection.DiseaseDetectionScreen();
-        break;
-      case ViewType.kidsZone:
-        currentScreen = const kids_zone.KidsZoneScreen();
-        break;
-      case ViewType.profile:
-        currentScreen = const ProfileScreen();
-        break;
-      default:
-        currentScreen = _screens[appState.currentNavIndex];
-    }
 
     return Scaffold(
       body: PageView(
@@ -94,7 +59,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   }
 
   Widget _buildBottomNavigationBar(BuildContext context, AppStateProvider appState) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final theme = Theme.of(context).bottomNavigationBarTheme;
 
     return Container(
@@ -102,7 +66,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         color: theme.backgroundColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(0.1),
+            color: Colors.black.withAlpha(25),
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),

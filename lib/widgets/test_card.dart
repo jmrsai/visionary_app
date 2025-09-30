@@ -85,7 +85,7 @@ class _TestCardState extends State<TestCard> with SingleTickerProviderStateMixin
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: widget.test.color.withAlpha(0.1),
+                    color: widget.test.color.withAlpha(25),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
@@ -97,7 +97,7 @@ class _TestCardState extends State<TestCard> with SingleTickerProviderStateMixin
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: widget.test.color.withAlpha(0.1),
+                      color: widget.test.color.withAlpha(25),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -179,7 +179,7 @@ class _TestCardState extends State<TestCard> with SingleTickerProviderStateMixin
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withAlpha(0.1),
+        color: color.withAlpha(25),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(

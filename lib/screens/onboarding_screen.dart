@@ -195,7 +195,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: Colors.white.withAlpha(0.2),
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(
-                    color: Colors.white.withAlpha(0.3),
+                    color: Colors.white.withAlpha(77),
                     width: 2,
                   ),
                 ),
@@ -208,7 +208,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   .animate()
                   .scale(duration: 800.ms, curve: Curves.elasticOut)
                   .then()
-                  .shimmer(duration: 2000.ms, color: Colors.white.withAlpha(0.3)),
+                  .shimmer(duration: 2000.ms, color: Colors.white.withAlpha(77)),
               
               const SizedBox(height: 60),
               

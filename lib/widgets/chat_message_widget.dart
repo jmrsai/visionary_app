@@ -122,7 +122,7 @@ class ChatMessageWidget extends StatelessWidget {
             _formatTime(message.timestamp),
             style: theme.textTheme.bodySmall?.copyWith(
               color: isUser
-                  ? Colors.white.withAlpha(0.7)
+                  ? Colors.white.withAlpha(178)
                   : (isDark ? AppTheme.secondaryDark : AppTheme.secondaryLight),
             ),
           ),

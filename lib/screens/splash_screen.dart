@@ -31,7 +31,7 @@ class SplashScreen extends StatelessWidget {
                   color: Colors.white.withAlpha(0.2),
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(
-                    color: Colors.white.withAlpha(0.3),
+                    color: Colors.white.withAlpha(77),
                     width: 2,
                   ),
                 ),

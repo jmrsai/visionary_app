@@ -110,7 +110,7 @@ class _CustomTextFieldState extends State<CustomTextField> with SingleTickerProv
                     ? [
                         BoxShadow(
                           color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
-                              .withAlpha(0.1),
+                              .withAlpha(25),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
