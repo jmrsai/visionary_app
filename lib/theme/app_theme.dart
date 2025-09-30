@@ -99,8 +99,7 @@ class AppTheme {
       colorScheme: const ColorScheme.light(
         primary: primaryBlue,
         secondary: accentGreen,
-        surface: cardLight,
-        background: lightBackground,
+        surface: lightBackground,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: textLight,
@@ -121,7 +120,7 @@ class AppTheme {
         iconTheme: const IconThemeData(color: textLight),
       ),
 
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: cardLight,
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -232,8 +231,7 @@ class AppTheme {
       colorScheme: const ColorScheme.dark(
         primary: accentGreen,
         secondary: primaryBlue,
-        surface: cardDark,
-        background: darkBackground,
+        surface: darkBackground,
         onPrimary: primaryBlue,
         onSecondary: Colors.white,
         onSurface: textDark,
@@ -254,7 +252,7 @@ class AppTheme {
         iconTheme: const IconThemeData(color: textDark),
       ),
 
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: cardDark,
         elevation: 0,
         shape: RoundedRectangleBorder(
