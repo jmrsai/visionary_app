@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import '../models/chat_message.dart';
 import '../theme/app_theme.dart';
 
 class ChatMessageWidget extends StatelessWidget {
   final ChatMessage message;
   final Function(String) onSuggestionTap;
+  final Function(String) onQuickReply;
 
   const ChatMessageWidget({
-    super.key,
+    Key? key,
     required this.message,
     required this.onSuggestionTap,
-  });
+    required this.onQuickReply,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,8 @@ class ChatMessageWidget extends StatelessWidget {
               crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
               children: [
                 _buildMessageBubble(context, theme, isDark, isUser),
+                if (message.quickReplies != null && message.quickReplies!.isNotEmpty)
+                  _buildQuickReplies(context, isDark),
                 if (message.suggestedResponses != null && message.suggestedResponses!.isNotEmpty)
                   _buildSuggestions(context, isDark),
               ],
@@ -44,7 +47,7 @@ class ChatMessageWidget extends StatelessWidget {
           ],
         ],
       ),
-    ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.2, end: 0);
+    ).animate().fadeIn(duration: const Duration(milliseconds: 400)).slideY(begin: 0.2, end: 0);
   }
 
   Widget _buildAvatar(bool isDark, bool isUser) {
@@ -81,7 +84,7 @@ class ChatMessageWidget extends StatelessWidget {
   }
 
   Widget _buildMessageBubble(BuildContext context, ThemeData theme, bool isDark, bool isUser) {
-    if (message.isTyping) {
+    if (message.isTyping == true) {
       return _buildTypingIndicator(isDark);
     }
 
@@ -94,15 +97,14 @@ class ChatMessageWidget extends StatelessWidget {
         color: isUser
             ? (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
             : (isDark ? AppTheme.cardDark : AppTheme.cardLight),
-        borderRadius: BorderRadius.only(
-          topLeft: const Radius.circular(16),
-          topRight: const Radius.circular(16),
-          bottomLeft: Radius.circular(isUser ? 16 : 4),
-          bottomRight: Radius.circular(isUser ? 4 : 16),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+          bottomLeft: Radius.circular(16),
+          bottomRight: Radius.circular(16),
         ),
         border: !isUser && !isDark
-            ? Border.all(color: Colors.grey.shade200)
-            : null,
+            ? Border.all(color: Colors.grey.shade200) : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,8 +174,8 @@ class ChatMessageWidget extends StatelessWidget {
                     .scale(
                       begin: const Offset(0.5, 0.5),
                       end: const Offset(1.2, 1.2),
-                      duration: 600.ms,
-                      delay: (200 * index).ms,
+                      duration: const Duration(milliseconds: 600),
+                      delay: Duration(milliseconds: 200 * index),
                       curve: Curves.easeInOut,
                     );
               }),
@@ -218,6 +220,42 @@ class ChatMessageWidget extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildQuickReplies(BuildContext context, bool isDark) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: message.quickReplies!.map((reply) {
+          return GestureDetector(
+            onTap: () => onQuickReply(reply),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
+                    .withOpacity(0.1),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
+                      .withOpacity(0.3),
+                ),
+              ),
+              child: Text(
+                reply,
+                style: TextStyle(
+                  color: isDark ? AppTheme.accentGreen : AppTheme.primaryBlue,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
 
   String _formatTime(DateTime timestamp) {
     final now = DateTime.now();

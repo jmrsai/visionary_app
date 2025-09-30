@@ -13,9 +13,10 @@ import 'sports_vision_screen.dart';
 import 'squint_assessment_screen.dart';
 import 'disease_detection_screen.dart';
 import 'kids_zone_screen.dart';
+import '../app_routes.dart';
 
 class MainNavigationScreen extends StatefulWidget {
-  const MainNavigationScreen({super.key});
+  const MainNavigationScreen({Key? key}) : super(key: key);
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
@@ -80,28 +81,31 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           return _buildCurrentView(appState.currentView);
         }
 
-        return Scaffold(
-          body: PageView(
-            controller: _pageController,
-            onPageChanged: (index) {
-              appState.setNavIndex(index);
-            },
-            children: const [
-              DashboardScreen(),
-              VisionTestsScreen(),
-              ExercisesScreen(),
-              AIChatbotScreen(),
-              ProfileScreen(),
-            ],
+        return MaterialApp(
+          routes: AppRoutes.routes,
+          home: Scaffold(
+            body: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                appState.setNavIndex(index);
+              },
+              children: const [
+                DashboardScreen(),
+                VisionTestsScreen(),
+                ExercisesScreen(),
+                AIChatbotScreen(),
+                ProfileScreen(),
+              ],
+            ),
+            bottomNavigationBar: _buildBottomNavBar(appState),
           ),
-          bottomNavigationBar: _buildBottomNavBar(appState),
         );
       },
     );
   }
 
   bool _isMainNavView(ViewType viewType) {
-    return [
+    return const [
       ViewType.dashboard,
       ViewType.visionTests,
       ViewType.exercises,
@@ -113,7 +117,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget _buildBottomNavBar(AppStateProvider appState) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    
+
     return Container(
       decoration: BoxDecoration(
         color: theme.bottomNavigationBarTheme.backgroundColor,

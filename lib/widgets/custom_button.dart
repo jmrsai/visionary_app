@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import '../theme/app_theme.dart';
 
 enum ButtonType { primary, secondary, outline, text }
@@ -15,7 +14,7 @@ class CustomButton extends StatefulWidget {
   final EdgeInsets? padding;
 
   const CustomButton({
-    super.key,
+    Key? key,
     required this.text,
     this.onPressed,
     this.type = ButtonType.primary,
@@ -24,7 +23,7 @@ class CustomButton extends StatefulWidget {
     this.width,
     this.height,
     this.padding,
-  });
+  }) : super(key: key);
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -110,8 +109,8 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
         gradient: LinearGradient(
           colors: widget.onPressed != null
               ? isDark
-                  ? [AppTheme.accentGreen, AppTheme.accentGreen.withOpacity(0.8)]
-                  : [AppTheme.primaryBlue, AppTheme.primaryBlue.withOpacity(0.8)]
+                  ? [AppTheme.accentGreen, AppTheme.accentGreen.withValues(alpha: 0.8)]
+                  : [AppTheme.primaryBlue, AppTheme.primaryBlue.withValues(alpha: 0.8)]
               : [Colors.grey.shade400, Colors.grey.shade500],
         ),
         borderRadius: BorderRadius.circular(12),
@@ -187,7 +186,10 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
           borderRadius: BorderRadius.circular(12),
           child: Container(
             padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: _buildButtonContent(theme, color),
+            child: _buildButtonContent(
+              theme,
+              color,
+            ),
           ),
         ),
       ),
@@ -206,7 +208,10 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
           width: widget.width,
           height: widget.height,
           padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: _buildButtonContent(theme, color),
+          child: _buildButtonContent(
+            theme,
+            color,
+          ),
         ),
       ),
     );

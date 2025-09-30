@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../providers/app_state_provider.dart';
@@ -10,7 +9,7 @@ import '../widgets/quick_stats_widget.dart';
 import '../widgets/daily_tip_card.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -48,7 +47,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       builder: (context, authProvider, appState, themeProvider, child) {
         final user = authProvider.user!;
         final isDark = themeProvider.isDarkMode;
-        
+
         return Scaffold(
           body: CustomScrollView(
             controller: _scrollController,
@@ -56,26 +55,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
               _buildAppBar(user, isDark, themeProvider),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Welcome section
                       _buildWelcomeSection(user, isDark),
                       const SizedBox(height: 24),
-                      
+
                       // Quick stats
                       const QuickStatsWidget(),
                       const SizedBox(height: 24),
-                      
+
                       // Daily tip
                       const DailyTipCard(),
                       const SizedBox(height: 24),
-                      
+
                       // Quick actions
                       _buildQuickActions(context, appState, isDark),
                       const SizedBox(height: 24),
-                      
+
                       // Feature grid
                       _buildFeatureGrid(context, appState, isDark),
                       const SizedBox(height: 100), // Bottom padding for nav
@@ -128,7 +127,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final hour = DateTime.now().hour;
     String greeting;
     String emoji;
-    
+
     if (hour < 12) {
       greeting = 'Good Morning';
       emoji = '🌅';
@@ -173,15 +172,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Text(
                       '$greeting, ${user.name}!',
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? AppTheme.textDark : AppTheme.textLight,
-                      ),
+                            fontWeight: FontWeight.bold,
+                            color: isDark ? AppTheme.textDark : AppTheme.textLight,
+                          ),
                     ),
                     Text(
                       'How are your eyes feeling today?',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: isDark ? AppTheme.secondaryDark : AppTheme.secondaryLight,
-                      ),
+                            color: isDark ? AppTheme.secondaryDark : AppTheme.secondaryLight,
+                          ),
                     ),
                   ],
                 ),
@@ -190,10 +189,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-    )
-        .animate()
-        .fadeIn(duration: 600.ms)
-        .slideX(begin: -0.2, end: 0);
+    );
   }
 
   Widget _buildQuickActions(BuildContext context, AppStateProvider appState, bool isDark) {
@@ -203,9 +199,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Text(
           'Quick Actions',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: isDark ? AppTheme.textDark : AppTheme.textLight,
-          ),
+                fontWeight: FontWeight.bold,
+                color: isDark ? AppTheme.textDark : AppTheme.textLight,
+              ),
         ),
         const SizedBox(height: 16),
         SingleChildScrollView(
@@ -251,10 +247,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
       ],
-    )
-        .animate()
-        .fadeIn(duration: 600.ms, delay: 200.ms)
-        .slideY(begin: 0.2, end: 0);
+    );
   }
 
   Widget _buildQuickActionCard({
@@ -337,9 +330,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Text(
           'All Features',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: isDark ? AppTheme.textDark : AppTheme.textLight,
-          ),
+                fontWeight: FontWeight.bold,
+                color: isDark ? AppTheme.textDark : AppTheme.textLight,
+              ),
         ),
         const SizedBox(height: 16),
         GridView.builder(
@@ -360,10 +353,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           },
         ),
       ],
-    )
-        .animate()
-        .fadeIn(duration: 600.ms, delay: 400.ms)
-        .slideY(begin: 0.2, end: 0);
+    );
   }
 }
 

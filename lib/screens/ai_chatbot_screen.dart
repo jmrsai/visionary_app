@@ -102,7 +102,7 @@ class _AIChatbotScreenState extends State<AIChatbotScreen> {
       content: response,
       type: MessageType.assistant,
       timestamp: DateTime.now(),
-      suggestedResponses: suggestions,
+      z: suggestions,
     );
 
     setState(() {

@@ -13,12 +13,12 @@ class AppTheme {
   static const Color textDark = Color(0xFFF1F5F9);
   static const Color secondaryLight = Color(0xFF64748B);
   static const Color secondaryDark = Color(0xFF94A3B8);
-  
+
   // Success, warning, error colors
   static const Color success = Color(0xFF10B981);
   static const Color warning = Color(0xFFF59E0B);
   static const Color error = Color(0xFFEF4444);
-  
+
   // Text theme
   static TextTheme get textTheme {
     return GoogleFonts.interTextTheme().copyWith(
@@ -95,7 +95,7 @@ class AppTheme {
       primaryColor: primaryBlue,
       scaffoldBackgroundColor: lightBackground,
       textTheme: textTheme.apply(bodyColor: textLight, displayColor: textLight),
-      
+
       colorScheme: const ColorScheme.light(
         primary: primaryBlue,
         secondary: accentGreen,
@@ -108,29 +108,29 @@ class AppTheme {
         error: error,
         onError: Colors.white,
       ),
-      
-      appBarTheme: AppBarTheme(
+
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
-        titleTextStyle: GoogleFonts.inter(
+        titleTextStyle: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textLight,
         ),
-        iconTheme: const IconThemeData(color: textLight),
+        iconTheme: IconThemeData(color: textLight),
       ),
-      
-      cardTheme: CardTheme(
+
+      cardTheme: const CardTheme(
         color: cardLight,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: Colors.grey.shade200, width: 1),
+          side: BorderSide(color: Color(0xFFD1D5DB), width: 1),
         ),
       ),
-      
+
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryBlue,
@@ -141,13 +141,13 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      
+
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: primaryBlue,
@@ -156,13 +156,13 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      
+
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: primaryBlue,
@@ -170,48 +170,48 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      
+
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.grey.shade50,
-        border: OutlineInputBorder(
+        fillColor: const Color(0xFFF9FAFB),
+        border: const OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey.shade300),
+          borderSide: BorderSide(color: Color(0xFFE5E7EB)),
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey.shade300),
+          borderSide: BorderSide(color: Color(0xFFE5E7EB)),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: primaryBlue, width: 2),
+          borderSide: BorderSide(color: primaryBlue, width: 2),
         ),
-        errorBorder: OutlineInputBorder(
+        errorBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: error, width: 1),
+          borderSide: BorderSide(color: error, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        hintStyle: GoogleFonts.inter(
+        hintStyle: const TextStyle(
           color: secondaryLight,
           fontSize: 16,
         ),
       ),
-      
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: cardLight,
         selectedItemColor: primaryBlue,
         unselectedItemColor: secondaryLight,
-        selectedLabelStyle: GoogleFonts.inter(
+        selectedLabelStyle: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: GoogleFonts.inter(
+        unselectedLabelStyle: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w500,
         ),
@@ -229,7 +229,7 @@ class AppTheme {
       primaryColor: accentGreen,
       scaffoldBackgroundColor: darkBackground,
       textTheme: textTheme.apply(bodyColor: textDark, displayColor: textDark),
-      
+
       colorScheme: const ColorScheme.dark(
         primary: accentGreen,
         secondary: primaryBlue,
@@ -242,29 +242,29 @@ class AppTheme {
         error: error,
         onError: Colors.white,
       ),
-      
-      appBarTheme: AppBarTheme(
+
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
-        titleTextStyle: GoogleFonts.inter(
+        titleTextStyle: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textDark,
         ),
-        iconTheme: const IconThemeData(color: textDark),
+        iconTheme: IconThemeData(color: textDark),
       ),
-      
-      cardTheme: CardTheme(
+
+      cardTheme: const CardTheme(
         color: cardDark,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: Colors.grey.shade800, width: 1),
+          side: BorderSide(color: Color(0xFF4B5563), width: 1),
         ),
       ),
-      
+
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: accentGreen,
@@ -275,13 +275,13 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      
+
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: accentGreen,
@@ -290,13 +290,13 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      
+
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: accentGreen,
@@ -304,48 +304,48 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      
+
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.grey.shade900,
-        border: OutlineInputBorder(
+        fillColor: const Color(0xFF263238),
+        border: const OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey.shade700),
+          borderSide: BorderSide(color: Color(0xFF4B5563)),
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey.shade700),
+          borderSide: BorderSide(color: Color(0xFF4B5563)),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: accentGreen, width: 2),
+          borderSide: BorderSide(color: accentGreen, width: 2),
         ),
-        errorBorder: OutlineInputBorder(
+        errorBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: error, width: 1),
+          borderSide: BorderSide(color: error, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        hintStyle: GoogleFonts.inter(
+        hintStyle: const TextStyle(
           color: secondaryDark,
           fontSize: 16,
         ),
       ),
-      
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: cardDark,
         selectedItemColor: accentGreen,
         unselectedItemColor: secondaryDark,
-        selectedLabelStyle: GoogleFonts.inter(
+        selectedLabelStyle: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: GoogleFonts.inter(
+        unselectedLabelStyle: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w500,
         ),

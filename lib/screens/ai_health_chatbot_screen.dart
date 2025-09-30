@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/app_state.dart';
-import '../models/chat_message.dart';
-import '../services/ai_chat_service.dart';
-import '../widgets/chat_message_widget.dart';
-import '../widgets/typing_indicator.dart';
-import '../widgets/image_capture_widget.dart';
+import 'package:visionary/models/conversation_context.dart';
+import 'package:visionary/models/chat_message.dart';
+import 'package:visionary/services/ai_chat_service.dart';
+import 'package:visionary/widgets/chat_message_widget.dart';
+import 'package:visionary/widgets/typing_indicator.dart';
+import 'package:visionary/widgets/image_capture_widget.dart';
 
 class AIHealthChatbotScreen extends StatefulWidget {
-  const AIHealthChatbotScreen({super.key});
+  const AIHealthChatbotScreen({Key? key}) : super(key: key);
 
   @override
   State<AIHealthChatbotScreen> createState() => _AIHealthChatbotScreenState();
@@ -18,7 +18,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
   final TextEditingController _textController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final AIChatService _chatService = AIChatService();
-  
+
   List<ChatMessage> _messages = [];
   bool _isTyping = false;
   bool _showImageCapture = false;
@@ -43,7 +43,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
       type: MessageType.ai,
       content: "Hello! I'm your AI Eye Health Assistant. I'm here to help you understand your symptoms, provide guidance, and connect you with the right care when needed. How can I help you today?",
       timestamp: DateTime.now(),
-      quickReplies: [
+      quickReplies: const [
         'I have eye pain',
         'My vision is blurry',
         'My eyes are red',
@@ -51,7 +51,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
         'I have questions about eye health'
       ],
     );
-    
+
     setState(() {
       _messages = [welcomeMessage];
     });
@@ -91,7 +91,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
     // Generate AI response
     await Future.delayed(const Duration(milliseconds: 1500));
     final aiResponse = await _chatService.generateResponse(content, _context);
-    
+
     setState(() {
       _messages.add(aiResponse);
       _isTyping = false;
@@ -101,8 +101,40 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
     _scrollToBottom();
   }
 
+    Future<void> _sendQuickReply(String reply) async {
+    if (reply.trim().isEmpty) return;
+
+    // Add user message
+    final userMessage = ChatMessage(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      type: MessageType.user,
+      content: reply,
+      timestamp: DateTime.now(),
+    );
+
+    setState(() {
+      _messages.add(userMessage);
+      _isTyping = true;
+    });
+
+    _textController.clear();
+    _scrollToBottom();
+
+    // Generate AI response
+    await Future.delayed(const Duration(milliseconds: 1500));
+    final aiResponse = await _chatService.generateQuickReplyResponse(reply, _context);
+
+    setState(() {
+      _messages.add(aiResponse);
+      _isTyping = false;
+      _context = _chatService.updateContext(_context, reply, aiResponse);
+    });
+
+    _scrollToBottom();
+  }
+
   void _handleQuickReply(String reply) {
-    _sendMessage(reply);
+    _sendQuickReply(reply);
   }
 
   void _toggleImageCapture() {
@@ -133,7 +165,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
     // Simulate image analysis
     await Future.delayed(const Duration(seconds: 3));
 
-    final analysisResult = AnalysisResult(
+    const analysisResult = AnalysisResult(
       condition: 'Mild Blepharitis',
       confidence: 82,
       recommendations: [
@@ -151,7 +183,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
       timestamp: DateTime.now(),
       analysis: analysisResult,
       severity: MessageSeverity.low,
-      quickReplies: [
+      quickReplies: const [
         'How to do warm compress',
         'When to see doctor',
         'Prevention tips',
@@ -234,8 +266,8 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
             margin: const EdgeInsets.all(16),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.blue.withAlpha(25),
-              border: Border.all(color: Colors.blue.withAlpha(77)),
+              color: Colors.blue.withOpacity(0.1),
+              border: Border.all(color: Colors.blue.withOpacity(0.3)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -277,7 +309,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
                 }
                 return ChatMessageWidget(
                   message: _messages[index],
-                  onSuggestionTap: (suggestion) {  },
+                  onSuggestionTap: (suggestion) {},
                   onQuickReply: _handleQuickReply,
                 );
               },
@@ -302,7 +334,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
-          top: BorderSide(color: Colors.grey.withAlpha(51)),
+          top: BorderSide(color: Colors.grey.withOpacity(0.2)),
         ),
       ),
       child: Column(
@@ -319,7 +351,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: Colors.grey.withAlpha(25),
+                    fillColor: Colors.grey.withOpacity(0.1),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 12,
@@ -393,7 +425,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.withAlpha(77)),
+          border: Border.all(color: Colors.grey.withOpacity(0.3)),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
