@@ -42,7 +42,7 @@ class VisionTestsScreen extends StatelessWidget {
         title: const Text('Vision Tests'),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             GridView.builder(

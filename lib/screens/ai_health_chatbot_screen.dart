@@ -179,7 +179,7 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Row(
           children: [
             Expanded(

@@ -33,13 +33,13 @@ class _TypingIndicatorState extends State<TypingIndicator>
       vsync: this,
     );
 
-    _animation1 = Tween<double>(begin: 0.4, end: 1.0).animate(
+    _animation1 = Tween<double>(begin: 0.4, end: 1).animate(
       CurvedAnimation(parent: _controller1, curve: Curves.easeInOut),
     );
-    _animation2 = Tween<double>(begin: 0.4, end: 1.0).animate(
+    _animation2 = Tween<double>(begin: 0.4, end: 1).animate(
       CurvedAnimation(parent: _controller2, curve: Curves.easeInOut),
     );
-    _animation3 = Tween<double>(begin: 0.4, end: 1.0).animate(
+    _animation3 = Tween<double>(begin: 0.4, end: 1).animate(
       CurvedAnimation(parent: _controller3, curve: Curves.easeInOut),
     );
 

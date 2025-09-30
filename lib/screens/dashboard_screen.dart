@@ -55,7 +55,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               _buildAppBar(user, isDark, themeProvider),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -97,7 +97,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       backgroundColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
         title: AnimatedOpacity(
-          opacity: _showAppBarTitle ? 1.0 : 0.0,
+          opacity: _showAppBarTitle ? 1 : 0,
           duration: const Duration(milliseconds: 200),
           child: Text(
             'Dashboard',

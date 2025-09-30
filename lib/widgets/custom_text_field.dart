@@ -55,7 +55,7 @@ class _CustomTextFieldState extends State<CustomTextField> with SingleTickerProv
       duration: const Duration(milliseconds: 200),
       vsync: this,
     );
-    _focusAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+    _focusAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
 

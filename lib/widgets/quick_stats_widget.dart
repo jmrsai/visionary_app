@@ -119,7 +119,7 @@ class QuickStatsWidget extends StatelessWidget {
       BuildContext context, List<TestResult> testResults, bool isDark) {
     final theme = Theme.of(context);
     final averageScore = testResults.isEmpty
-        ? 0.0
+        ? 0
         : testResults.map((r) => r.score).reduce((a, b) => a + b) / testResults.length;
 
     return Column(

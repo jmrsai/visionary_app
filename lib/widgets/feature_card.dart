@@ -29,7 +29,7 @@ class _FeatureCardState extends State<FeatureCard> with SingleTickerProviderStat
       vsync: this,
     );
     _scaleAnimation = Tween<double>(
-      begin: 1.0,
+      begin: 1,
       end: 0.95,
     ).animate(CurvedAnimation(
       parent: _animationController,

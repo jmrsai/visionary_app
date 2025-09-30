@@ -5,10 +5,6 @@ import 'package:visionary/screens/dashboard_screen.dart';
 import 'package:visionary/screens/exercises_screen.dart';
 import 'package:visionary/screens/profile_screen.dart';
 import 'package:visionary/screens/vision_tests_screen.dart';
-import 'package:visionary/screens/sports_vision_screen.dart' as sports_vision;
-import 'package:visionary/screens/squint_assessment_screen.dart' as squint_assessment;
-import 'package:visionary/screens/disease_detection_screen.dart' as disease_detection;
-import 'package:visionary/screens/kids_zone_screen.dart' as kids_zone;
 import '../providers/app_state_provider.dart';
 
 class MainNavigationScreen extends StatefulWidget {

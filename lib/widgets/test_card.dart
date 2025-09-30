@@ -31,7 +31,7 @@ class _TestCardState extends State<TestCard> with SingleTickerProviderStateMixin
       vsync: this,
     );
     _scaleAnimation = Tween<double>(
-      begin: 1.0,
+      begin: 1,
       end: 0.98,
     ).animate(CurvedAnimation(
       parent: _animationController,
