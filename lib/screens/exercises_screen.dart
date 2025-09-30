@@ -116,14 +116,14 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isDark
-              ? [AppTheme.accentGreen.withOpacity(0.2), AppTheme.success.withOpacity(0.2)]
-              : [AppTheme.success.withOpacity(0.1), AppTheme.accentGreen.withOpacity(0.1)],
+              ? [AppTheme.accentGreen.withValue(0.2), AppTheme.success.withValue(0.2)]
+              : [AppTheme.success.withValue(0.1), AppTheme.accentGreen.withValue(0.1)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: (isDark ? AppTheme.accentGreen : AppTheme.success).withOpacity(0.2),
+          color: (isDark ? AppTheme.accentGreen : AppTheme.success).withValue(0.2),
         ),
       ),
       child: Column(
@@ -163,7 +163,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: (isDark ? AppTheme.accentGreen : AppTheme.success).withOpacity(0.1),
+              color: (isDark ? AppTheme.accentGreen : AppTheme.success).withValue(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -230,11 +230,11 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
         color: isDark ? AppTheme.cardDark : AppTheme.cardLight,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: exercise.color.withOpacity(0.2),
+          color: exercise.color.withValue(0.2),
         ),
         boxShadow: [
           BoxShadow(
-            color: exercise.color.withOpacity(0.1),
+            color: exercise.color.withValue(0.1),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -249,7 +249,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
                 width: 50,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: exercise.color.withOpacity(0.1),
+                  color: exercise.color.withValue(0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
@@ -327,7 +327,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValue(0.1),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(
@@ -400,7 +400,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: exercise.color.withOpacity(0.1),
+                    color: exercise.color.withValue(0.1),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Icon(

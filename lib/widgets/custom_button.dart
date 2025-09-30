@@ -117,7 +117,7 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
         boxShadow: widget.onPressed != null
             ? [
                 BoxShadow(
-                  color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withOpacity(0.3),
+                  color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withValue(0.3),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),

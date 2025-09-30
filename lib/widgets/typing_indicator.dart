@@ -81,7 +81,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
             width: 32,
             height: 32,
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Colors.blue.withValue(0.1),
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -95,7 +95,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withValue(0.1),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
@@ -112,7 +112,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
                     width: 6,
                     height: 6,
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(_animation1.value),
+                      color: Colors.grey.withValue(_animation1.value),
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -124,7 +124,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
                     width: 6,
                     height: 6,
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(_animation2.value),
+                      color: Colors.grey.withValue(_animation2.value),
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -136,7 +136,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
                     width: 6,
                     height: 6,
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(_animation3.value),
+                      color: Colors.grey.withValue(_animation3.value),
                       shape: BoxShape.circle,
                     ),
                   ),

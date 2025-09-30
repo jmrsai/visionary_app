@@ -130,10 +130,10 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
           width: 100,
           height: 100,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
+            color: Colors.white.withValue(0.2),
             borderRadius: BorderRadius.circular(25),
             border: Border.all(
-              color: Colors.white.withOpacity(0.3),
+              color: Colors.white.withValue(0.3),
               width: 2,
             ),
           ),
@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
         Text(
           'Your Personal Vision Companion',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: Colors.white.withOpacity(0.9),
+            color: Colors.white.withValue(0.9),
           ),
           textAlign: TextAlign.center,
         ),
@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValue(0.1),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -274,7 +274,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
         Text(
           _isLogin ? "Don't have an account?" : 'Already have an account?',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Colors.white.withOpacity(0.9),
+            color: Colors.white.withValue(0.9),
           ),
         ),
         const SizedBox(height: 8),

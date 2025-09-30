@@ -145,14 +145,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isDark
-              ? [AppTheme.accentGreen.withOpacity(0.2), AppTheme.primaryBlue.withOpacity(0.2)]
-              : [AppTheme.primaryBlue.withOpacity(0.1), AppTheme.accentGreen.withOpacity(0.1)],
+              ? [AppTheme.accentGreen.withValue(0.2), AppTheme.primaryBlue.withValue(0.2)]
+              : [AppTheme.primaryBlue.withValue(0.1), AppTheme.accentGreen.withValue(0.1)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withOpacity(0.2),
+          color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withValue(0.2),
         ),
       ),
       child: Column(
@@ -264,9 +264,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         width: 120,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValue(0.1),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: color.withOpacity(0.3)),
+          border: Border.all(color: color.withValue(0.3)),
         ),
         child: Column(
           children: [

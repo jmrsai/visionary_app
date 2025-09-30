@@ -125,7 +125,7 @@ class ChatMessageWidget extends StatelessWidget {
             _formatTime(message.timestamp),
             style: theme.textTheme.bodySmall?.copyWith(
               color: isUser
-                  ? Colors.white.withOpacity(0.7)
+                  ? Colors.white.withValue(0.7)
                   : (isDark ? AppTheme.secondaryDark : AppTheme.secondaryLight),
             ),
           ),
@@ -201,11 +201,11 @@ class ChatMessageWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
-                    .withOpacity(0.1),
+                    .withValue(0.1),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
-                      .withOpacity(0.3),
+                      .withValue(0.3),
                 ),
               ),
               child: Text(
@@ -236,11 +236,11 @@ class ChatMessageWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
-                    .withOpacity(0.1),
+                    .withValue(0.1),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
-                      .withOpacity(0.3),
+                      .withValue(0.3),
                 ),
               ),
               child: Text(

@@ -28,10 +28,10 @@ class SplashScreen extends StatelessWidget {
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValue(0.2),
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.3),
+                    color: Colors.white.withValue(0.3),
                     width: 2,
                   ),
                 ),
@@ -70,7 +70,7 @@ class SplashScreen extends StatelessWidget {
               Text(
                 'Your Vision Companion',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValue(0.9),
                   fontWeight: FontWeight.w500,
                 ),
               )
@@ -87,7 +87,7 @@ class SplashScreen extends StatelessWidget {
                 child: CircularProgressIndicator(
                   strokeWidth: 3,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.white.withOpacity(0.8),
+                    Colors.white.withValue(0.8),
                   ),
                 ),
               )
@@ -99,7 +99,7 @@ class SplashScreen extends StatelessWidget {
               Text(
                 'Initializing your vision journey...',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValue(0.8),
                 ),
               )
                   .animate()

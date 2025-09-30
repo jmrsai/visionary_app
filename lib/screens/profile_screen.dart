@@ -65,14 +65,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isDark
-              ? [AppTheme.accentGreen.withOpacity(0.2), AppTheme.primaryBlue.withOpacity(0.2)]
-              : [AppTheme.primaryBlue.withOpacity(0.1), AppTheme.accentGreen.withOpacity(0.1)],
+              ? [AppTheme.accentGreen.withValue(0.2), AppTheme.primaryBlue.withValue(0.2)]
+              : [AppTheme.primaryBlue.withValue(0.1), AppTheme.accentGreen.withValue(0.1)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withOpacity(0.2),
+          color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withValue(0.2),
         ),
       ),
       child: Column(
@@ -133,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withOpacity(0.1),
+              color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withValue(0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -254,7 +254,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValue(0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(

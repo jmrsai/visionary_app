@@ -110,7 +110,7 @@ class _CustomTextFieldState extends State<CustomTextField> with SingleTickerProv
                     ? [
                         BoxShadow(
                           color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
-                              .withOpacity(0.1),
+                              .withValue(0.1),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -149,7 +149,7 @@ class _CustomTextFieldState extends State<CustomTextField> with SingleTickerProv
                   suffixIcon: widget.suffixIcon,
                   filled: true,
                   fillColor: isDark 
-                      ? AppTheme.cardDark.withOpacity(0.8)
+                      ? AppTheme.cardDark.withValue(0.8)
                       : AppTheme.cardLight,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
