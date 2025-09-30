@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:visionary/models/app_state.dart';
 import '../providers/app_state_provider.dart';
+import '../screens/dashboard_screen.dart';
 import '../theme/app_theme.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/feature_card.dart';
@@ -30,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 24),
             _buildSectionTitle(context, 'Achievements'),
             const SizedBox(height: 12),
-            _buildAchievementsGrid(appState.achievements),
+            _buildAchievementsGrid(context, appState.achievements),
             const SizedBox(height: 24),
             _buildSectionTitle(context, 'Recent Activity'),
             const SizedBox(height: 12),
@@ -43,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
             CustomButton(
               text: 'Logout',
               onPressed: () => _showLogoutConfirmation(context),
-              variant: ButtonVariant.danger,
+              type: ButtonType.primary,
             ),
           ],
         ),
@@ -123,7 +125,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAchievementsGrid(List<String> achievements) {
+  Widget _buildAchievementsGrid(BuildContext context, List<String> achievements) {
     if (achievements.isEmpty) {
       return const Text('No achievements yet. Keep playing!');
     }
@@ -140,10 +142,16 @@ class ProfileScreen extends StatelessWidget {
       itemCount: achievements.length,
       itemBuilder: (context, index) {
         final achievement = achievements[index];
-        return FeatureCard(
+        final featureData = FeatureData(
           title: achievement,
+          description: 'Achievement',
           icon: Icons.star,
+          color: Theme.of(context).colorScheme.primary,
           onTap: () {},
+        );
+        return FeatureCard(
+          feature: featureData,
+          index: index,
         );
       },
     );
