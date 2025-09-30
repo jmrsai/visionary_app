@@ -104,30 +104,29 @@ class AppTheme {
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: textLight,
-        onBackground: textLight,
         error: error,
         onError: Colors.white,
       ),
 
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
-        titleTextStyle: TextStyle(
+        titleTextStyle: GoogleFonts.inter(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textLight,
         ),
-        iconTheme: IconThemeData(color: textLight),
+        iconTheme: const IconThemeData(color: textLight),
       ),
 
-      cardTheme: const CardTheme(
+      cardTheme: CardTheme(
         color: cardLight,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+          side: BorderSide(color: Colors.grey.shade200, width: 1),
         ),
       ),
 
@@ -141,7 +140,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: const TextStyle(
+          textStyle: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -156,7 +155,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: const TextStyle(
+          textStyle: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -170,7 +169,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          textStyle: const TextStyle(
+          textStyle: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -179,39 +178,39 @@ class AppTheme {
 
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFFF9FAFB),
-        border: const OutlineInputBorder(
+        fillColor: Colors.grey.shade50,
+        border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xFFE5E7EB)),
+          borderSide: BorderSide(color: Colors.grey.shade300),
         ),
-        enabledBorder: const OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xFFE5E7EB)),
+          borderSide: BorderSide(color: Colors.grey.shade300),
         ),
-        focusedBorder: const OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: primaryBlue, width: 2),
+          borderSide: const BorderSide(color: primaryBlue, width: 2),
         ),
-        errorBorder: const OutlineInputBorder(
+        errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: error, width: 1),
+          borderSide: const BorderSide(color: error, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        hintStyle: const TextStyle(
+        hintStyle: GoogleFonts.inter(
           color: secondaryLight,
           fontSize: 16,
         ),
       ),
 
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: cardLight,
         selectedItemColor: primaryBlue,
         unselectedItemColor: secondaryLight,
-        selectedLabelStyle: TextStyle(
+        selectedLabelStyle: GoogleFonts.inter(
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: TextStyle(
+        unselectedLabelStyle: GoogleFonts.inter(
           fontSize: 12,
           fontWeight: FontWeight.w500,
         ),
@@ -238,30 +237,29 @@ class AppTheme {
         onPrimary: primaryBlue,
         onSecondary: Colors.white,
         onSurface: textDark,
-        onBackground: textDark,
         error: error,
         onError: Colors.white,
       ),
 
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
-        titleTextStyle: TextStyle(
+        titleTextStyle: GoogleFonts.inter(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: textDark,
         ),
-        iconTheme: IconThemeData(color: textDark),
+        iconTheme: const IconThemeData(color: textDark),
       ),
 
-      cardTheme: const CardTheme(
+      cardTheme: CardTheme(
         color: cardDark,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: Color(0xFF4B5563), width: 1),
+          side: BorderSide(color: Colors.grey.shade800, width: 1),
         ),
       ),
 
@@ -275,7 +273,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: const TextStyle(
+          textStyle: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -290,7 +288,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: const TextStyle(
+          textStyle: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -304,7 +302,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          textStyle: const TextStyle(
+          textStyle: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -313,39 +311,39 @@ class AppTheme {
 
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFF263238),
-        border: const OutlineInputBorder(
+        fillColor: Colors.grey.shade900,
+        border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xFF4B5563)),
+          borderSide: BorderSide(color: Colors.grey.shade700),
         ),
-        enabledBorder: const OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xFF4B5563)),
+          borderSide: BorderSide(color: Colors.grey.shade700),
         ),
-        focusedBorder: const OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: accentGreen, width: 2),
+          borderSide: const BorderSide(color: accentGreen, width: 2),
         ),
-        errorBorder: const OutlineInputBorder(
+        errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: error, width: 1),
+          borderSide: const BorderSide(color: error, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        hintStyle: const TextStyle(
+        hintStyle: GoogleFonts.inter(
           color: secondaryDark,
           fontSize: 16,
         ),
       ),
 
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: cardDark,
         selectedItemColor: accentGreen,
         unselectedItemColor: secondaryDark,
-        selectedLabelStyle: TextStyle(
+        selectedLabelStyle: GoogleFonts.inter(
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: TextStyle(
+        unselectedLabelStyle: GoogleFonts.inter(
           fontSize: 12,
           fontWeight: FontWeight.w500,
         ),

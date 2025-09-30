@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../models/chat_message.dart';
 import '../theme/app_theme.dart';
 
@@ -8,11 +9,11 @@ class ChatMessageWidget extends StatelessWidget {
   final Function(String) onQuickReply;
 
   const ChatMessageWidget({
-    Key? key,
+    super.key,
     required this.message,
     required this.onSuggestionTap,
     required this.onQuickReply,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class ChatMessageWidget extends StatelessWidget {
           ],
         ],
       ),
-    ).animate().fadeIn(duration: const Duration(milliseconds: 400)).slideY(begin: 0.2, end: 0);
+    ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.2, end: 0);
   }
 
   Widget _buildAvatar(bool isDark, bool isUser) {
@@ -84,7 +85,7 @@ class ChatMessageWidget extends StatelessWidget {
   }
 
   Widget _buildMessageBubble(BuildContext context, ThemeData theme, bool isDark, bool isUser) {
-    if (message.isTyping == true) {
+    if (message.isTyping) {
       return _buildTypingIndicator(isDark);
     }
 
@@ -97,14 +98,15 @@ class ChatMessageWidget extends StatelessWidget {
         color: isUser
             ? (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
             : (isDark ? AppTheme.cardDark : AppTheme.cardLight),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-          bottomLeft: Radius.circular(16),
-          bottomRight: Radius.circular(16),
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(16),
+          topRight: const Radius.circular(16),
+          bottomLeft: Radius.circular(isUser ? 16 : 4),
+          bottomRight: Radius.circular(isUser ? 4 : 16),
         ),
         border: !isUser && !isDark
-            ? Border.all(color: Colors.grey.shade200) : null,
+            ? Border.all(color: Colors.grey.shade200)
+            : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,8 +176,8 @@ class ChatMessageWidget extends StatelessWidget {
                     .scale(
                       begin: const Offset(0.5, 0.5),
                       end: const Offset(1.2, 1.2),
-                      duration: const Duration(milliseconds: 600),
-                      delay: Duration(milliseconds: 200 * index),
+                      duration: 600.ms,
+                      delay: (200 * index).ms,
                       curve: Curves.easeInOut,
                     );
               }),

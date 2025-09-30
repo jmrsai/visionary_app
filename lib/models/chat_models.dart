@@ -12,6 +12,9 @@ class ChatMessage {
   final String? imageUrl;
   final AnalysisResult? analysis;
   final MessageSeverity? severity;
+  final bool isTyping;
+  final List<String>? suggestedResponses;
+
 
   ChatMessage({
     required this.id,
@@ -22,6 +25,8 @@ class ChatMessage {
     this.imageUrl,
     this.analysis,
     this.severity,
+    this.isTyping = false,
+    this.suggestedResponses,
   });
 }
 
