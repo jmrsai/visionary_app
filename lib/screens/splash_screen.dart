@@ -28,7 +28,7 @@ class SplashScreen extends StatelessWidget {
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(0.2),
+                  color: Colors.white.withAlpha(51),
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(
                     color: Colors.white.withAlpha(77),
@@ -43,7 +43,7 @@ class SplashScreen extends StatelessWidget {
               )
                   .animate(onPlay: (controller) => controller.repeat())
                   .scale(
-                    duration: 2000.ms,
+                    duration: const Duration(milliseconds: 2000),
                     begin: const Offset(0.9, 0.9),
                     end: const Offset(1.1, 1.1),
                     curve: Curves.easeInOut,
@@ -61,7 +61,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               )
                   .animate()
-                  .fadeIn(duration: 1000.ms, delay: 500.ms)
+                  .fadeIn(duration: const Duration(milliseconds: 1000), delay: const Duration(milliseconds: 500))
                   .slideY(begin: 0.3, end: 0),
               
               const SizedBox(height: 12),
@@ -70,12 +70,12 @@ class SplashScreen extends StatelessWidget {
               Text(
                 'Your Vision Companion',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.white.withAlpha(0.9),
+                  color: Colors.white.withAlpha(230),
                   fontWeight: FontWeight.w500,
                 ),
               )
                   .animate()
-                  .fadeIn(duration: 1000.ms, delay: 800.ms)
+                  .fadeIn(duration: const Duration(milliseconds: 1000), delay: const Duration(milliseconds: 800))
                   .slideY(begin: 0.3, end: 0),
               
               const SizedBox(height: 60),
@@ -87,23 +87,23 @@ class SplashScreen extends StatelessWidget {
                 child: CircularProgressIndicator(
                   strokeWidth: 3,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.white.withAlpha(0.8),
+                    Colors.white.withAlpha(204),
                   ),
                 ),
               )
                   .animate()
-                  .fadeIn(duration: 800.ms, delay: 1200.ms),
+                  .fadeIn(duration: const Duration(milliseconds: 800), delay: const Duration(milliseconds: 1200)),
               
               const SizedBox(height: 20),
               
               Text(
                 'Initializing your vision journey...',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.white.withAlpha(0.8),
+                  color: Colors.white.withAlpha(204),
                 ),
               )
                   .animate()
-                  .fadeIn(duration: 800.ms, delay: 1500.ms),
+                  .fadeIn(duration: const Duration(milliseconds: 800), delay: const Duration(milliseconds: 1500)),
             ],
           ),
         ),

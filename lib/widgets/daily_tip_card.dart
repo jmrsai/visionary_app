@@ -1,214 +1,98 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../theme/app_theme.dart';
+import 'package:provider/provider.dart';
+import 'package:visionary/models/tip.dart';
+import 'package:visionary/providers/app_state_provider.dart';
 
-class DailyTipCard extends StatefulWidget {
+class DailyTipCard extends StatelessWidget {
   const DailyTipCard({super.key});
 
   @override
-  State<DailyTipCard> createState() => _DailyTipCardState();
-}
-
-class _DailyTipCardState extends State<DailyTipCard> {
-  int _currentTipIndex = 0;
-
-  final List<DailyTip> _tips = [
-    DailyTip(
-      title: 'Follow the 20-20-20 Rule',
-      description: 'Every 20 minutes, look at something 20 feet away for 20 seconds to reduce eye strain.',
-      icon: Icons.timer,
-      color: AppTheme.success,
-    ),
-    DailyTip(
-      title: 'Blink Frequently',
-      description: 'Blinking helps keep your eyes moist and reduces dryness, especially during screen time.',
-      icon: Icons.visibility,
-      color: AppTheme.primaryBlue,
-    ),
-    DailyTip(
-      title: 'Proper Lighting',
-      description: 'Ensure adequate lighting when reading or using devices to reduce eye strain.',
-      icon: Icons.lightbulb,
-      color: AppTheme.warning,
-    ),
-    DailyTip(
-      title: 'Stay Hydrated',
-      description: 'Drinking plenty of water helps maintain eye moisture and overall eye health.',
-      icon: Icons.local_drink,
-      color: AppTheme.accentGreen,
-    ),
-    DailyTip(
-      title: 'Regular Eye Checkups',
-      description: 'Visit an eye care professional annually for comprehensive eye examinations.',
-      icon: Icons.medical_services,
-      color: AppTheme.error,
-    ),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    // Set tip based on day of year
-    _currentTipIndex = DateTime.now().day % _tips.length;
-  }
-
-  void _nextTip() {
-    setState(() {
-      _currentTipIndex = (_currentTipIndex + 1) % _tips.length;
-    });
-  }
-
-  void _previousTip() {
-    setState(() {
-      _currentTipIndex = (_currentTipIndex - 1 + _tips.length) % _tips.length;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    final currentTip = _tips[_currentTipIndex];
+    final appState = Provider.of<AppStateProvider>(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final Tip currentTip = appState.currentTip;
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            currentTip.color.withAlpha(25),
-            currentTip.color.withAlpha(13),
-          ],
+          colors: isDark
+              ? [currentTip.color.withAlpha(51), currentTip.color.withAlpha(25)]
+              : [currentTip.color.withAlpha(128), currentTip.color],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: currentTip.color.withAlpha(77),
-        ),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: currentTip.color.withAlpha(25),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
+            color: currentTip.color.withAlpha(isDark ? 25 : 77),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          )
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: currentTip.color.withAlpha(0.2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(
-                  currentTip.icon,
-                  color: currentTip.color,
-                  size: 24,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            // Can add action, e.g., show more details about the tip
+          },
+          borderRadius: BorderRadius.circular(20),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   children: [
-                    Text(
-                      'Daily Tip',
-                      style: theme.textTheme.labelMedium?.copyWith(
-                        color: currentTip.color,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    Icon(
+                      currentTip.icon,
+                      color: Colors.white,
+                      size: 28,
                     ),
+                    const SizedBox(width: 12),
                     Text(
-                      currentTip.title,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? AppTheme.textDark : AppTheme.textLight,
-                      ),
+                      'Daily Health Tip',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ],
                 ),
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: _previousTip,
-                    icon: Icon(
-                      Icons.chevron_left,
-                      color: currentTip.color,
-                    ),
-                    iconSize: 20,
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(
-                      minWidth: 32,
-                      minHeight: 32,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: _nextTip,
-                    icon: Icon(
-                      Icons.chevron_right,
-                      color: currentTip.color,
-                    ),
-                    iconSize: 20,
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(
-                      minWidth: 32,
-                      minHeight: 32,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            currentTip.description,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: isDark ? AppTheme.secondaryDark : AppTheme.secondaryLight,
-              height: 1.5,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: List.generate(
-              _tips.length,
-              (index) => Container(
-                width: 6,
-                height: 6,
-                margin: const EdgeInsets.only(right: 4),
-                decoration: BoxDecoration(
-                  color: index == _currentTipIndex
-                      ? currentTip.color
-                      : currentTip.color.withAlpha(77),
-                  borderRadius: BorderRadius.circular(3),
+                const SizedBox(height: 16),
+                Text(
+                  currentTip.text,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Colors.white.withAlpha(230),
+                        height: 1.5,
+                      ),
                 ),
-              ),
+                const SizedBox(height: 16),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: appState.showNewTip,
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      backgroundColor: Colors.white.withAlpha(51),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: Colors.white.withAlpha(51)),
+                      ),
+                    ),
+                    child: const Text(
+                      'Show Another Tip',
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
-    )
-        .animate()
-        .fadeIn(duration: 600.ms, delay: 150.ms)
-        .slideX(begin: 0.2, end: 0);
+    ).animate().fadeIn(duration: const Duration(milliseconds: 500)).slideY(begin: 0.1, end: 0);
   }
-}
-
-class DailyTip {
-  final String title;
-  final String description;
-  final IconData icon;
-  final Color color;
-
-  DailyTip({
-    required this.title,
-    required this.description,
-    required this.icon,
-    required this.color,
-  });
 }

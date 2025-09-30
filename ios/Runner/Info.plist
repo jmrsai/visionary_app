@@ -45,5 +45,26 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.861823949799-vc35344och0vrsovc82u2792hj30os3h</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>visionary</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.jmr.visionary.visionary</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

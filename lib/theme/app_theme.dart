@@ -14,6 +14,14 @@ class AppTheme {
   static const Color secondaryLight = Color(0xFF64748B);
   static const Color secondaryDark = Color(0xFF94A3B8);
 
+  // Accent colors
+  static const Color accentYellow = Color(0xFFFBBF24);
+  static const Color accentOrange = Color(0xFFFB923C);
+  static const Color accentRed = Color(0xFFF87171);
+  static const Color accentPurple = Color(0xFFC084FC);
+  static const Color accentCyan = Color(0xFF22D3EE);
+  static const Color accentMagenta = Color(0xFFE879F9);
+
   // Success, warning, error colors
   static const Color success = Color(0xFF10B981);
   static const Color warning = Color(0xFFF59E0B);

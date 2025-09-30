@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:visionary/models/app_state.dart';
+import 'package:visionary/models/tip.dart';
+import 'package:visionary/theme/app_theme.dart';
 
 enum ViewType {
   dashboard,
@@ -21,6 +24,8 @@ class AppStateProvider extends ChangeNotifier {
   final List<TestResult> _testResults = [];
   List<String> _achievements = [];
   int _sparkleStars = 0;
+  bool _onboardingCompleted = false;
+  int _completedExercisesToday = 0;
 
   ViewType get currentView => _currentView;
   int get currentNavIndex => _currentNavIndex;
@@ -28,9 +33,15 @@ class AppStateProvider extends ChangeNotifier {
   List<TestResult> get testResults => _testResults;
   List<String> get achievements => _achievements;
   int get sparkleStars => _sparkleStars;
+  bool get onboardingCompleted => _onboardingCompleted;
+  int get completedExercisesToday => _completedExercisesToday;
+
+  late Tip _currentTip;
+  Tip get currentTip => _currentTip;
 
   AppStateProvider() {
     _loadAppState();
+    _currentTip = _generateRandomTip();
   }
 
   void setCurrentView(ViewType view) {
@@ -73,6 +84,39 @@ class AppStateProvider extends ChangeNotifier {
     _sparkleStars += stars;
     _saveAppState();
     notifyListeners();
+  }
+
+  void completeOnboarding() {
+    _onboardingCompleted = true;
+    _saveAppState();
+    notifyListeners();
+  }
+
+  void showNewTip() {
+    _currentTip = _generateRandomTip();
+    notifyListeners();
+  }
+
+  Tip _generateRandomTip() {
+    // In a real app, these would be more varied and perhaps fetched from a service
+    final tips = [
+      Tip(
+        text: 'Take a 20-second break every 20 minutes to look at something 20 feet away.',
+        icon: Icons.timer,
+        color: AppTheme.primaryBlue,
+      ),
+      Tip(
+        text: 'Blink frequently to keep your eyes lubricated and reduce dryness.',
+        icon: Icons.visibility_off_outlined,
+        color: AppTheme.accentGreen,
+      ),
+      Tip(
+        text: 'Adjust your screen brightness to match the ambient light in your room.',
+        icon: Icons.brightness_6_outlined,
+        color: AppTheme.accentPurple,
+      ),
+    ];
+    return tips[DateTime.now().second % tips.length];
   }
 
   void _updateNavIndexFromView() {
@@ -122,6 +166,8 @@ class AppStateProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     _sparkleStars = prefs.getInt('sparkle_stars') ?? 0;
     _achievements = prefs.getStringList('achievements') ?? [];
+    _onboardingCompleted = prefs.getBool('onboarding_completed') ?? false;
+    _completedExercisesToday = prefs.getInt('completed_exercises_today') ?? 0;
     // Loading test results would be more complex, omitted for brevity
     notifyListeners();
   }
@@ -130,6 +176,8 @@ class AppStateProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('sparkle_stars', _sparkleStars);
     await prefs.setStringList('achievements', _achievements);
+    await prefs.setBool('onboarding_completed', _onboardingCompleted);
+    await prefs.setInt('completed_exercises_today', _completedExercisesToday);
     // Saving test results would be more complex, omitted for brevity
   }
 
@@ -137,20 +185,16 @@ class AppStateProvider extends ChangeNotifier {
     _testResults.clear();
     _achievements.clear();
     _sparkleStars = 0;
+    _onboardingCompleted = false;
+    _completedExercisesToday = 0;
     
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('sparkle_stars');
     await prefs.remove('achievements');
+    await prefs.remove('onboarding_completed');
+    await prefs.remove('completed_exercises_today');
     // Clearing test results would be more complex, omitted for brevity
 
     notifyListeners();
   }
-}
-
-class TestResult {
-  final String testName;
-  final double score;
-  final DateTime timestamp;
-
-  TestResult({required this.testName, required this.score, required this.timestamp});
 }

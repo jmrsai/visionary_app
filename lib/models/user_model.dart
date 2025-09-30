@@ -6,6 +6,7 @@ class User {
   final String email;
   final String? avatar;
   final DateTime createdAt;
+  final bool isAnonymous;
 
   User({
     required this.id,
@@ -13,6 +14,7 @@ class User {
     required this.email,
     this.avatar,
     required this.createdAt,
+    this.isAnonymous = false,
   });
 
   User copyWith({
@@ -21,6 +23,7 @@ class User {
     String? email,
     String? avatar,
     DateTime? createdAt,
+    bool? isAnonymous,
   }) {
     return User(
       id: id ?? this.id,
@@ -28,6 +31,7 @@ class User {
       email: email ?? this.email,
       avatar: avatar ?? this.avatar,
       createdAt: createdAt ?? this.createdAt,
+      isAnonymous: isAnonymous ?? this.isAnonymous,
     );
   }
 
@@ -38,6 +42,7 @@ class User {
       'email': email,
       'avatar': avatar,
       'createdAt': createdAt.toIso8601String(),
+      'isAnonymous': isAnonymous,
     };
   }
 
@@ -48,6 +53,7 @@ class User {
       email: map['email'] ?? '',
       avatar: map['avatar'],
       createdAt: DateTime.parse(map['createdAt'] ?? DateTime.now().toIso8601String()),
+      isAnonymous: map['isAnonymous'] ?? false,
     );
   }
 
@@ -57,7 +63,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, createdAt: $createdAt)';
+    return 'User(id: $id, name: $name, email: $email, avatar: $avatar, createdAt: $createdAt, isAnonymous: $isAnonymous)';
   }
 
   @override
@@ -69,7 +75,8 @@ class User {
       other.name == name &&
       other.email == email &&
       other.avatar == avatar &&
-      other.createdAt == createdAt;
+      other.createdAt == createdAt &&
+      other.isAnonymous == isAnonymous;
   }
 
   @override
@@ -78,6 +85,7 @@ class User {
       name.hashCode ^
       email.hashCode ^
       avatar.hashCode ^
-      createdAt.hashCode;
+      createdAt.hashCode ^
+      isAnonymous.hashCode;
   }
 }

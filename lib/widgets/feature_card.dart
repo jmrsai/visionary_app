@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../theme/app_theme.dart';
-import '../screens/dashboard_screen.dart';
+
+class FeatureData {
+  final IconData icon;
+  final String title;
+  final String description;
+  final Color color;
+  final VoidCallback onTap;
+
+  const FeatureData({
+    required this.icon,
+    required this.title,
+    required this.description,
+    required this.color,
+    required this.onTap,
+  });
+}
 
 class FeatureCard extends StatefulWidget {
   final FeatureData feature;
@@ -65,7 +80,7 @@ class _FeatureCardState extends State<FeatureCard> with SingleTickerProviderStat
                 color: isDark ? AppTheme.cardDark : AppTheme.cardLight,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: widget.feature.color.withAlpha(0.2),
+                  color: widget.feature.color.withAlpha(51),
                   width: 1,
                 ),
                 boxShadow: [

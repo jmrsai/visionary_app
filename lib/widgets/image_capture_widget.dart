@@ -17,7 +17,7 @@ class ImageCaptureWidget extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.blue.withAlpha(13),
-        border: Border.all(color: Colors.blue.withAlpha(0.2), width: 2),
+        border: Border.all(color: Colors.blue.withAlpha(51), width: 2),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(

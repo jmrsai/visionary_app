@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
   
   bool _isLogin = true;
   bool _isLoading = false;
-  bool _obscurePassword = true;
   
   late AnimationController _backgroundController;
   late AnimationController _formController;
@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
   }
 
   Future<void> _handleSubmit() async {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState?.validate() ?? false) {
       setState(() => _isLoading = true);
       
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -69,12 +69,30 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
         );
       }
       
+      if (mounted) {
+        setState(() => _isLoading = false);
+        if (!success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(_isLogin ? 'Invalid credentials' : 'Registration failed'),
+              backgroundColor: AppTheme.error,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  Future<void> _handleSocialSignIn(Future<bool> Function() signInMethod, String name) async {
+    setState(() => _isLoading = true);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    bool success = await signInMethod();
+    if (mounted) {
       setState(() => _isLoading = false);
-      
-      if (!success && mounted) {
+      if (!success) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(_isLogin ? 'Invalid credentials' : 'Registration failed'),
+            content: Text('$name Sign in Failed'),
             backgroundColor: AppTheme.error,
           ),
         );
@@ -101,19 +119,11 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                const SizedBox(height: 60),
-                
-                // App logo and title
-                _buildHeader().animate().fadeIn(duration: 800.ms).slideY(begin: -0.3),
-                
-                const SizedBox(height: 60),
-                
-                // Login/Register form
-                _buildForm().animate().fadeIn(duration: 800.ms, delay: 300.ms).slideY(begin: 0.3),
-                
                 const SizedBox(height: 40),
-                
-                // Toggle between login/register
+                _buildHeader().animate().fadeIn(duration: 800.ms).slideY(begin: -0.3),
+                const SizedBox(height: 40),
+                _buildForm().animate().fadeIn(duration: 800.ms, delay: 300.ms).slideY(begin: 0.3),
+                const SizedBox(height: 30),
                 _buildToggle().animate().fadeIn(duration: 800.ms, delay: 600.ms),
               ],
             ),
@@ -130,18 +140,11 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
           width: 100,
           height: 100,
           decoration: BoxDecoration(
-            color: Colors.white.withAlpha(0.2),
+            color: Colors.white.withOpacity(0.2),
             borderRadius: BorderRadius.circular(25),
-            border: Border.all(
-              color: Colors.white.withAlpha(77),
-              width: 2,
-            ),
+            border: Border.all(color: Colors.white.withOpacity(0.3), width: 2),
           ),
-          child: const Icon(
-            Icons.visibility,
-            size: 50,
-            color: Colors.white,
-          ),
+          child: const Icon(Icons.visibility, size: 50, color: Colors.white),
         ),
         const SizedBox(height: 24),
         Text(
@@ -155,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
         Text(
           'Your Personal Vision Companion',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: Colors.white.withAlpha(0.9),
+            color: Colors.white.withOpacity(0.9),
           ),
           textAlign: TextAlign.center,
         ),
@@ -169,13 +172,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(25),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 10))],
       ),
       child: Form(
         key: _formKey,
@@ -192,80 +189,99 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
             ),
             const SizedBox(height: 8),
             Text(
-              _isLogin 
-                ? 'Sign in to continue your vision journey'
-                : 'Join us for better eye health',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppTheme.secondaryLight,
-              ),
+              _isLogin ? 'Sign in to continue your vision journey' : 'Join us for better eye health',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.secondaryLight),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
-            
             if (!_isLogin) ...[
               CustomTextField(
                 controller: _nameController,
-                label: 'Full Name',
+                labelText: 'Full Name',
                 prefixIcon: Icons.person_outline,
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'Please enter your name';
-                  }
-                  return null;
-                },
+                validator: (value) => (value?.isEmpty ?? true) ? 'Please enter your name' : null,
               ),
               const SizedBox(height: 16),
             ],
-            
             CustomTextField(
               controller: _emailController,
-              label: 'Email',
+              labelText: 'Email',
               prefixIcon: Icons.email_outlined,
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
-                if (value?.isEmpty ?? true) {
-                  return 'Please enter your email';
-                }
-                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value!)) {
-                  return 'Please enter a valid email';
-                }
+                if (value?.isEmpty ?? true) return 'Please enter your email';
+                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value!)) return 'Please enter a valid email';
                 return null;
               },
             ),
             const SizedBox(height: 16),
-            
             CustomTextField(
               controller: _passwordController,
-              label: 'Password',
+              labelText: 'Password',
               prefixIcon: Icons.lock_outline,
-              obscureText: _obscurePassword,
-              suffixIcon: IconButton(
-                icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
-                onPressed: () {
-                  setState(() => _obscurePassword = !_obscurePassword);
-                },
-              ),
+              isPassword: true,
               validator: (value) {
-                if (value?.isEmpty ?? true) {
-                  return 'Please enter your password';
-                }
-                if (value!.length < 6) {
-                  return 'Password must be at least 6 characters';
-                }
+                if (value?.isEmpty ?? true) return 'Please enter your password';
+                if (value!.length < 6) return 'Password must be at least 6 characters';
                 return null;
               },
             ),
             const SizedBox(height: 32),
-            
             CustomButton(
               text: _isLogin ? 'Sign In' : 'Create Account',
-              onPressed: _isLoading ? null : _handleSubmit,
+              onPressed: _handleSubmit,
               isLoading: _isLoading,
             ),
+            const SizedBox(height: 16),
+            _buildSocialLoginDivider(),
+            const SizedBox(height: 16),
+            ..._buildSocialButtons(),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildSocialLoginDivider() {
+    return Row(
+      children: [
+        const Expanded(child: Divider()),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text('OR', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.secondaryLight)),
+        ),
+        const Expanded(child: Divider()),
+      ],
+    );
+  }
+  
+  List<Widget> _buildSocialButtons() {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    return [
+      CustomButton(
+        text: 'Sign in with Google',
+        onPressed: () => _handleSocialSignIn(authProvider.signInWithGoogle, 'Google'),
+        backgroundColor: Colors.white,
+        foregroundColor: AppTheme.primaryBlue,
+        isOutlined: true,
+      ),
+      if (defaultTargetPlatform == TargetPlatform.iOS) ...[
+        const SizedBox(height: 12),
+        CustomButton(
+          text: 'Sign in with Apple',
+          onPressed: () => _handleSocialSignIn(authProvider.signInWithApple, 'Apple'),
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
+        ),
+      ],
+      const SizedBox(height: 12),
+      CustomButton(
+        text: 'Continue as Guest',
+        onPressed: () => _handleSocialSignIn(authProvider.signInAnonymously, 'Guest'),
+        backgroundColor: AppTheme.lightGrey,
+        foregroundColor: AppTheme.primaryBlue,
+      ),
+    ];
   }
 
   Widget _buildToggle() {
@@ -273,9 +289,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
       children: [
         Text(
           _isLogin ? "Don't have an account?" : 'Already have an account?',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Colors.white.withAlpha(0.9),
-          ),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white.withOpacity(0.9)),
         ),
         const SizedBox(height: 8),
         TextButton(
@@ -287,11 +301,11 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
           child: Text(
             _isLogin ? 'Create Account' : 'Sign In',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              decoration: TextDecoration.underline,
-              decorationColor: Colors.white,
-            ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.white,
+                ),
           ),
         ),
       ],

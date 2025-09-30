@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "862371581041",
+    "project_id": "eyeconnect-65sog",
+    "storage_bucket": "eyeconnect-65sog.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862371581041:android:0b25ab82ebf95676dc5fd0",
+        "android_client_info": {
+          "package_name": "com.example.visionary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862371581041-es4smf6sqekcvteocek445q1sjbgh8en.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUyEiLX7u1B2B-biAx51lBJNnQDFXvhKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862371581041-es4smf6sqekcvteocek445q1sjbgh8en.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "862371581041-4p5g1cpel1t3e95mdl9ncjn9qegraa7o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jmr.visionary.visionary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862371581041:android:c9da7a2ad1460590dc5fd0",
+        "android_client_info": {
+          "package_name": "com.eyeconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862371581041-es4smf6sqekcvteocek445q1sjbgh8en.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUyEiLX7u1B2B-biAx51lBJNnQDFXvhKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862371581041-es4smf6sqekcvteocek445q1sjbgh8en.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "862371581041-4p5g1cpel1t3e95mdl9ncjn9qegraa7o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jmr.visionary.visionary"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

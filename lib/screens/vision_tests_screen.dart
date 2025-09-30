@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:visionary/models/vision_test.dart';
 import 'package:visionary/providers/app_state_provider.dart';
 import 'package:visionary/widgets/test_card.dart';
+import 'package:visionary/theme/app_theme.dart';
+import 'package:visionary/models/app_state.dart';
 
 class VisionTestsScreen extends StatelessWidget {
   const VisionTestsScreen({super.key});
@@ -10,31 +13,31 @@ class VisionTestsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final appState = Provider.of<AppStateProvider>(context);
 
-    final List<Map<String, dynamic>> visionTests = [
-      {
-        'title': 'Visual Acuity',
-        'description': 'Test your sharpness of vision.',
-        'icon': Icons.remove_red_eye_outlined,
-        'onTap': () => appState.setCurrentView(ViewType.symptomChecker), // Placeholder
-      },
-      {
-        'title': 'Color Blindness',
-        'description': 'Test for color vision deficiency.',
-        'icon': Icons.color_lens_outlined,
-        'onTap': () {},
-      },
-      {
-        'title': 'Field of Vision',
-        'description': 'Check for gaps in your peripheral vision.',
-        'icon': Icons.fullscreen_outlined,
-        'onTap': () {},
-      },
-      {
-        'title': 'Contrast Sensitivity',
-        'description': 'Test your ability to distinguish between light and dark.',
-        'icon': Icons.brightness_6_outlined,
-        'onTap': () {},
-      },
+    final List<VisionTest> visionTests = [
+      VisionTest(
+        title: 'Visual Acuity',
+        description: 'Test your sharpness of vision.',
+        icon: Icons.remove_red_eye_outlined,
+        onTap: () => appState.setCurrentView(ViewType.symptomChecker), // Placeholder
+      ),
+      VisionTest(
+        title: 'Color Blindness',
+        description: 'Test for color vision deficiency.',
+        icon: Icons.color_lens_outlined,
+        onTap: () {},
+      ),
+      VisionTest(
+        title: 'Field of Vision',
+        description: 'Check for gaps in your peripheral vision.',
+        icon: Icons.fullscreen_outlined,
+        onTap: () {},
+      ),
+      VisionTest(
+        title: 'Contrast Sensitivity',
+        description: 'Test your ability to distinguish between light and dark.',
+        icon: Icons.brightness_6_outlined,
+        onTap: () {},
+      ),
     ];
 
     return Scaffold(
@@ -58,10 +61,7 @@ class VisionTestsScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final test = visionTests[index];
                 return TestCard(
-                  title: test['title'],
-                  description: test['description'],
-                  icon: test['icon'],
-                  onTap: test['onTap'],
+                  test: test,
                 );
               },
             ),

@@ -1,250 +1,138 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:visionary/theme/app_theme.dart';
 
-enum ButtonType { primary, secondary, outline, text }
+enum ButtonType {
+  primary,
+  secondary,
+  tertiary,
+}
 
 class CustomButton extends StatefulWidget {
   final String text;
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
   final ButtonType type;
-  final bool isLoading;
   final IconData? icon;
-  final double? width;
-  final double? height;
-  final EdgeInsets? padding;
+  final bool isLoading;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.text,
-    this.onPressed,
+    required this.onPressed,
     this.type = ButtonType.primary,
-    this.isLoading = false,
     this.icon,
-    this.width,
-    this.height,
-    this.padding,
-  }) : super(key: key);
+    this.isLoading = false,
+  });
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
 }
 
-class _CustomButtonState extends State<CustomButton> with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 100),
-      vsync: this,
-    );
-    _scaleAnimation = Tween<double>(
-      begin: 1,
-      end: 0.95,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  void _onTapDown(TapDownDetails details) {
-    _animationController.forward();
-  }
-
-  void _onTapUp(TapUpDetails details) {
-    _animationController.reverse();
-  }
-
-  void _onTapCancel() {
-    _animationController.reverse();
-  }
+class _CustomButtonState extends State<CustomButton> {
+  bool _isHovering = false;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
-    return GestureDetector(
-      onTapDown: widget.onPressed != null ? _onTapDown : null,
-      onTapUp: widget.onPressed != null ? _onTapUp : null,
-      onTapCancel: widget.onPressed != null ? _onTapCancel : null,
-      child: AnimatedBuilder(
-        animation: _scaleAnimation,
-        builder: (context, child) {
-          return Transform.scale(
-            scale: _scaleAnimation.value,
-            child: _buildButton(theme, isDark),
-          );
-        },
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovering = true),
+      onExit: (_) => setState(() => _isHovering = false),
+      child: GestureDetector(
+        onTap: widget.isLoading ? null : widget.onPressed,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          height: 52,
+          decoration: _buildButtonDecoration(isDark),
+          child: Center(
+            child: widget.isLoading
+                ? const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (widget.icon != null)
+                        Icon(
+                          widget.icon,
+                          color: _getTextColor(isDark),
+                          size: 20,
+                        ),
+                      if (widget.icon != null)
+                        const SizedBox(width: 8),
+                      Text(
+                        widget.text,
+                        style: TextStyle(
+                          color: _getTextColor(isDark),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+          ),
+        ),
       ),
-    );
+    ).animate().fadeIn(duration: 300.ms);
   }
 
-  Widget _buildButton(ThemeData theme, bool isDark) {
+  Decoration _buildButtonDecoration(bool isDark) {
     switch (widget.type) {
       case ButtonType.primary:
-        return _buildPrimaryButton(theme, isDark);
+        return BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: LinearGradient(
+            colors: _isHovering
+                ? (isDark
+                    ? [AppTheme.accentGreen, AppTheme.accentGreen.withAlpha(204)]
+                    : [AppTheme.primaryBlue, AppTheme.primaryBlue.withAlpha(204)])
+                : (isDark
+                    ? [AppTheme.accentGreen, AppTheme.accentGreen]
+                    : [AppTheme.primaryBlue, AppTheme.primaryBlue]),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: _getShadowColor(isDark).withAlpha(_isHovering ? 102 : 51),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        );
       case ButtonType.secondary:
-        return _buildSecondaryButton(theme, isDark);
-      case ButtonType.outline:
-        return _buildOutlineButton(theme, isDark);
-      case ButtonType.text:
-        return _buildTextButton(theme, isDark);
+        return BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: isDark ? AppTheme.cardDark : AppTheme.cardLight,
+          border: Border.all(
+            color: isDark ? AppTheme.accentGreen : AppTheme.primaryBlue,
+            width: 1.5,
+          ),
+        );
+      case ButtonType.tertiary:
+        return BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.transparent,
+        );
     }
   }
 
-  Widget _buildPrimaryButton(ThemeData theme, bool isDark) {
-    return Container(
-      width: widget.width,
-      height: widget.height ?? 56,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: widget.onPressed != null
-              ? isDark
-                  ? [AppTheme.accentGreen, AppTheme.accentGreen.withAlphas(alpha: 0.8)]
-                  : [AppTheme.primaryBlue, AppTheme.primaryBlue.withAlphas(alpha: 0.8)]
-              : [Colors.grey.shade400, Colors.grey.shade500],
-        ),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: widget.onPressed != null
-            ? [
-                BoxShadow(
-                  color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withAlpha(77),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-              ]
-            : null,
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: widget.onPressed,
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: _buildButtonContent(
-              theme,
-              isDark ? AppTheme.primaryBlue : Colors.white,
-            ),
-          ),
-        ),
-      ),
-    );
+  Color _getTextColor(bool isDark) {
+    switch (widget.type) {
+      case ButtonType.primary:
+        return Colors.white;
+      case ButtonType.secondary:
+        return isDark ? AppTheme.accentGreen : AppTheme.primaryBlue;
+      case ButtonType.tertiary:
+        return isDark ? AppTheme.textDark : AppTheme.textLight;
+    }
   }
 
-  Widget _buildSecondaryButton(ThemeData theme, bool isDark) {
-    return Container(
-      width: widget.width,
-      height: widget.height ?? 56,
-      decoration: BoxDecoration(
-        color: isDark ? AppTheme.cardDark : AppTheme.cardLight,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
-        ),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: widget.onPressed,
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: _buildButtonContent(
-              theme,
-              isDark ? AppTheme.textDark : AppTheme.textLight,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOutlineButton(ThemeData theme, bool isDark) {
-    final color = isDark ? AppTheme.accentGreen : AppTheme.primaryBlue;
-    
-    return Container(
-      width: widget.width,
-      height: widget.height ?? 56,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color, width: 2),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: widget.onPressed,
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: _buildButtonContent(
-              theme,
-              color,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextButton(ThemeData theme, bool isDark) {
-    final color = isDark ? AppTheme.accentGreen : AppTheme.primaryBlue;
-    
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: widget.onPressed,
-        borderRadius: BorderRadius.circular(8),
-        child: Container(
-          width: widget.width,
-          height: widget.height,
-          padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: _buildButtonContent(
-            theme,
-            color,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildButtonContent(ThemeData theme, Color textColor) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (widget.isLoading)
-          SizedBox(
-            width: 20,
-            height: 20,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              valueColor: AlwaysStoppedAnimation<Color>(textColor),
-            ),
-          )
-        else ...[
-          if (widget.icon != null) ...[
-            Icon(widget.icon, color: textColor, size: 20),
-            const SizedBox(width: 8),
-          ],
-          Text(
-            widget.text,
-            style: theme.textTheme.titleMedium?.copyWith(
-              color: textColor,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ],
-    );
+  Color _getShadowColor(bool isDark) {
+    return isDark ? AppTheme.accentGreen : AppTheme.primaryBlue;
   }
 }

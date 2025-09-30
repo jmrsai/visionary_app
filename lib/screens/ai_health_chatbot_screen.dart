@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:visionary/models/chat_message.dart';
 import 'package:visionary/providers/app_state_provider.dart';
-import 'package:visionary/services/ai_chat_service.dart';
+import 'package:visionary/services/ai_service.dart';
 import 'package:visionary/widgets/chat_message_widget.dart';
 import 'package:visionary/widgets/typing_indicator.dart';
 
@@ -16,11 +16,10 @@ class AIHealthChatbotScreen extends StatefulWidget {
 class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
   final TextEditingController _textController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  final AIChatService _chatService = AIChatService();
+  final AiService _aiService = AiService();
 
   final List<ChatMessage> _messages = [];
   bool _isTyping = false;
-  String _currentSymptom = '';
 
   @override
   void initState() {
@@ -37,17 +36,13 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
 
   void _initializeChat() {
     setState(() {
+      _messages.clear();
       _messages.add(
         ChatMessage(
           id: 'initial',
           type: MessageType.ai,
           content: 'Welcome to the Visionary AI Health Chatbot. How can I assist you with your eye health today?',
           timestamp: DateTime.now(),
-          suggestedResponses: [
-            'Check my symptoms',
-            'I have a question about my eye health',
-            'Tell me about common eye conditions'
-          ],
         ),
       );
     });
@@ -83,24 +78,18 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
     _textController.clear();
     _scrollToBottom();
 
-    // Simulate AI response
     try {
-      final response = await _chatService.getResponse(text, _currentSymptom);
+      final response = await _aiService.chat(text);
       final aiResponse = ChatMessage(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         type: MessageType.ai,
-        content: response.content,
+        content: response,
         timestamp: DateTime.now(),
-        suggestedResponses: response.suggestions,
-        quickReplies: response.quickReplies,
       );
 
       setState(() {
         _isTyping = false;
         _messages.add(aiResponse);
-        if (response.symptom.isNotEmpty) {
-          _currentSymptom = response.symptom;
-        }
       });
     } catch (e) {
       final errorMessage = ChatMessage(
@@ -116,10 +105,6 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
     }
 
     _scrollToBottom();
-  }
-
-  void _onSuggestionTapped(String suggestion) {
-    _sendMessage(suggestion);
   }
 
   @override
@@ -154,8 +139,8 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
                 final message = _messages[index];
                 return ChatMessageWidget(
                   message: message,
-                  onSuggestionTap: _onSuggestionTapped,
-                  onQuickReply: _sendMessage, // Use _sendMessage for quick replies
+                  onSuggestionTap: (suggestion) {},
+                  onQuickReply: (reply) {},
                 );
               },
             ),
@@ -194,11 +179,18 @@ class _AIHealthChatbotScreenState extends State<AIHealthChatbotScreen> {
               ),
             ),
             const SizedBox(width: 16),
-            FloatingActionButton(
-              mini: true,
-              elevation: 2,
-              onPressed: () => _sendMessage(_textController.text),
-              child: const Icon(Icons.send),
+            ValueListenableBuilder<TextEditingValue>(
+              valueListenable: _textController,
+              builder: (context, value, child) {
+                return FloatingActionButton(
+                  mini: true,
+                  elevation: 2,
+                  onPressed: value.text.isNotEmpty
+                      ? () => _sendMessage(_textController.text)
+                      : null,
+                  child: const Icon(Icons.send),
+                );
+              },
             ),
           ],
         ),

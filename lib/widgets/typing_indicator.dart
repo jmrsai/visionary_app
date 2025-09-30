@@ -1,150 +1,124 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class TypingIndicator extends StatefulWidget {
-  const TypingIndicator({super.key});
+  final bool showIndicator;
+
+  const TypingIndicator({super.key, this.showIndicator = false});
 
   @override
   State<TypingIndicator> createState() => _TypingIndicatorState();
 }
 
-class _TypingIndicatorState extends State<TypingIndicator>
-    with TickerProviderStateMixin {
-  late AnimationController _controller1;
-  late AnimationController _controller2;
-  late AnimationController _controller3;
-  late Animation<double> _animation1;
-  late Animation<double> _animation2;
-  late Animation<double> _animation3;
+class _TypingIndicatorState extends State<TypingIndicator> with TickerProviderStateMixin {
+  late AnimationController _appearanceController;
+  late Animation<double> _indicatorAnimation;
+
+  late AnimationController _repeatingController;
+  final List<Interval> _dotIntervals = const [
+    Interval(0.0, 0.8),
+    Interval(0.1, 0.9),
+    Interval(0.2, 1.0),
+  ];
 
   @override
   void initState() {
     super.initState();
-    
-    _controller1 = AnimationController(
-      duration: const Duration(milliseconds: 600),
+    _appearanceController = AnimationController(
       vsync: this,
-    );
-    _controller2 = AnimationController(
-      duration: const Duration(milliseconds: 600),
-      vsync: this,
-    );
-    _controller3 = AnimationController(
-      duration: const Duration(milliseconds: 600),
-      vsync: this,
+      duration: const Duration(milliseconds: 250),
     );
 
-    _animation1 = Tween<double>(begin: 0.4, end: 1).animate(
-      CurvedAnimation(parent: _controller1, curve: Curves.easeInOut),
-    );
-    _animation2 = Tween<double>(begin: 0.4, end: 1).animate(
-      CurvedAnimation(parent: _controller2, curve: Curves.easeInOut),
-    );
-    _animation3 = Tween<double>(begin: 0.4, end: 1).animate(
-      CurvedAnimation(parent: _controller3, curve: Curves.easeInOut),
+    _indicatorAnimation = CurvedAnimation(
+      parent: _appearanceController,
+      curve: Curves.easeOut,
     );
 
-    _startAnimation();
+    _repeatingController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
+
+    if (widget.showIndicator) {
+      _showIndicator();
+    } 
   }
 
-  void _startAnimation() async {
-    while (mounted) {
-      await _controller1.forward();
-      await _controller1.reverse();
-      if (!mounted) return;
-      
-      await _controller2.forward();
-      await _controller2.reverse();
-      if (!mounted) return;
-      
-      await _controller3.forward();
-      await _controller3.reverse();
-      if (!mounted) return;
+  @override
+  void didUpdateWidget(TypingIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.showIndicator != oldWidget.showIndicator) {
+      if (widget.showIndicator) {
+        _showIndicator();
+      } else {
+        _hideIndicator();
+      }
     }
   }
 
   @override
   void dispose() {
-    _controller1.dispose();
-    _controller2.dispose();
-    _controller3.dispose();
+    _appearanceController.dispose();
+    _repeatingController.dispose();
     super.dispose();
+  }
+
+  void _showIndicator() {
+    _appearanceController.forward();
+    _repeatingController.repeat();
+  }
+
+  void _hideIndicator() {
+    _appearanceController.reverse();
+    _repeatingController.stop();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          // AI Avatar
-          Container(
-            width: 32,
-            height: 32,
+    return FadeTransition(
+      opacity: _indicatorAnimation,
+      child: SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0.0, 0.5),
+          end: Offset.zero,
+        ).animate(_indicatorAnimation),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _buildAnimatedDot(0),
+            _buildAnimatedDot(1),
+            _buildAnimatedDot(2),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAnimatedDot(int index) {
+    return FadeTransition(
+      opacity: Tween<double>(
+        begin: 0.5,
+        end: 1.0,
+      ).animate(
+        CurvedAnimation(
+          parent: _repeatingController,
+          curve: _dotIntervals[index],
+        ),
+      ),
+      child: Animate().custom(
+        duration: 1500.ms,
+        builder: (context, value, child) => Transform.translate(
+          offset: Offset(0, -value * 4),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 2.5),
+            width: 8,
+            height: 8,
             decoration: BoxDecoration(
-              color: Colors.blue.withAlpha(25),
               shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.smart_toy,
-              size: 16,
-              color: Colors.blue,
+              color: Colors.grey.withAlpha((_repeatingController.value * 255).round()),
             ),
           ),
-          const SizedBox(width: 8),
-          // Typing bubble
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: Colors.grey.withAlpha(25),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-                bottomLeft: Radius.circular(4),
-              ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AnimatedBuilder(
-                  animation: _animation1,
-                  builder: (context, child) => Container(
-                    width: 6,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withAlpha(_animation1.value),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 4),
-                AnimatedBuilder(
-                  animation: _animation2,
-                  builder: (context, child) => Container(
-                    width: 6,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withAlpha(_animation2.value),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 4),
-                AnimatedBuilder(
-                  animation: _animation3,
-                  builder: (context, child) => Container(
-                    width: 6,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withAlpha(_animation3.value),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

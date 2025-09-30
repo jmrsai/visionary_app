@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SportsVisionScreen extends StatelessWidget {
-  const SportsVisionScreen({Key? super.key});
+  const SportsVisionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
