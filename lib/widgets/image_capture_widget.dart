@@ -16,8 +16,8 @@ class ImageCaptureWidget extends StatelessWidget {
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.blue.withOpacity(0.05),
-        border: Border.all(color: Colors.blue.withOpacity(0.2), width: 2),
+        color: Colors.blue.withAlpha(0.05),
+        border: Border.all(color: Colors.blue.withAlpha(0.2), width: 2),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -40,7 +40,7 @@ class ImageCaptureWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Colors.blue.withAlpha(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: const Row(

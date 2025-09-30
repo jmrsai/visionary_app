@@ -1,50 +1,46 @@
-import 'package:visionary/models/chat_message.dart';
-import 'package:visionary/models/conversation_context.dart';
+import 'dart:async';
+
+import 'package:visionary/models/chat_response.dart';
 
 class AIChatService {
-  // Replace with your actual AI model initialization and API key
-  final String apiKey = 'YOUR_API_KEY'; // Store securely, don't hardcode!
-
-  Future<ChatMessage> generateResponse(String prompt, ConversationContext context) async {
-    // Simulate an AI response (replace with actual AI call)
+  Future<ChatResponse> getResponse(String message, String currentSymptom) async {
+    // Simulate network delay
     await Future.delayed(const Duration(seconds: 1));
-    String aiResponseContent = 'This is a simulated AI response to: $prompt';
 
-    // Basic context awareness (example)
-    if (context.lastUserMessage != null) {
-      aiResponseContent += '\n\nPrevious user message: ${context.lastUserMessage}';
+    // Simple mock logic for responses
+    if (currentSymptom.isEmpty) {
+      if (message.toLowerCase().contains('symptoms')) {
+        return ChatResponse(
+          content: 'I can help with that. What symptoms are you experiencing?',
+          symptom: 'starting',
+          suggestions: ['Blurry vision', 'Eye pain', 'Headaches'],
+        );
+      } else if (message.toLowerCase().contains('question')) {
+        return ChatResponse(
+          content: 'Of course. What is your question about eye health?',
+        );
+      } else if (message.toLowerCase().contains('conditions')) {
+        return ChatResponse(
+          content: 'I can provide information on various eye conditions. Which one are you interested in?',
+          quickReplies: ['Cataracts', 'Glaucoma', 'Myopia'],
+        );
+      } else {
+        return ChatResponse(
+          content: "I'm sorry, I didn't quite understand. You can ask me to check symptoms, answer questions, or tell you about eye conditions.",
+          suggestions: [
+            'Check my symptoms',
+            'I have a question about my eye health',
+            'Tell me about common eye conditions'
+          ],
+        );
+      }
+    } else {
+      // Follow-up logic based on currentSymptom
+      return ChatResponse(
+        content: 'Thank you for sharing. Based on your symptoms, I recommend consulting with an eye care professional. Would you like me to help you find one?',
+        symptom: '', // Reset symptom tracking
+        suggestions: ['Yes, find a doctor near me', 'No, thank you'],
+      );
     }
-
-    return ChatMessage(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      type: MessageType.ai,
-      content: aiResponseContent,
-      timestamp: DateTime.now(),
-    );
-  }
-
-    Future<ChatMessage> generateQuickReplyResponse(String prompt, ConversationContext context) async {
-    // Simulate an AI response (replace with actual AI call)
-    await Future.delayed(const Duration(seconds: 1));
-    String aiResponseContent = 'This is a simulated AI Quick Reply response to: $prompt';
-
-    // Basic context awareness (example)
-    if (context.lastUserMessage != null) {
-      aiResponseContent += '\n\nPrevious user message: ${context.lastUserMessage}';
-    }
-
-    return ChatMessage(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      type: MessageType.ai,
-      content: aiResponseContent,
-      timestamp: DateTime.now(),
-    );
-  }
-
-  ConversationContext updateContext(ConversationContext context, String userMessage, ChatMessage aiResponse) {
-    return context.copyWith(
-      lastUserMessage: userMessage,
-      lastAiResponse: aiResponse.content,
-    );
   }
 }

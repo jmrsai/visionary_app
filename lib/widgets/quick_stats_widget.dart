@@ -20,8 +20,8 @@ class QuickStatsWidget extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: isDark
-                ? Colors.black.withOpacity(0.1)
-                : Colors.grey.withOpacity(0.1),
+                ? Colors.black.withAlpha(0.1)
+                : Colors.grey.withAlpha(0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -93,7 +93,7 @@ class QuickStatsWidget extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 28,
-          backgroundColor: color.withOpacity(0.15),
+          backgroundColor: color.withAlpha(0.15),
           child: Icon(icon, size: 28, color: color),
         ),
         const SizedBox(height: 8),

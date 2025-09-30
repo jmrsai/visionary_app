@@ -109,15 +109,15 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
         gradient: LinearGradient(
           colors: widget.onPressed != null
               ? isDark
-                  ? [AppTheme.accentGreen, AppTheme.accentGreen.withOpacitys(alpha: 0.8)]
-                  : [AppTheme.primaryBlue, AppTheme.primaryBlue.withOpacitys(alpha: 0.8)]
+                  ? [AppTheme.accentGreen, AppTheme.accentGreen.withAlphas(alpha: 0.8)]
+                  : [AppTheme.primaryBlue, AppTheme.primaryBlue.withAlphas(alpha: 0.8)]
               : [Colors.grey.shade400, Colors.grey.shade500],
         ),
         borderRadius: BorderRadius.circular(12),
         boxShadow: widget.onPressed != null
             ? [
                 BoxShadow(
-                  color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withOpacity(0.3),
+                  color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue).withAlpha(0.3),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),

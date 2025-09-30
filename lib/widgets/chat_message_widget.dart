@@ -85,9 +85,6 @@ class ChatMessageWidget extends StatelessWidget {
   }
 
   Widget _buildMessageBubble(BuildContext context, ThemeData theme, bool isDark, bool isUser) {
-    if (message.isTyping) {
-      return _buildTypingIndicator(isDark);
-    }
 
     return Container(
       constraints: BoxConstraints(
@@ -125,62 +122,8 @@ class ChatMessageWidget extends StatelessWidget {
             _formatTime(message.timestamp),
             style: theme.textTheme.bodySmall?.copyWith(
               color: isUser
-                  ? Colors.white.withOpacity(0.7)
+                  ? Colors.white.withAlpha(0.7)
                   : (isDark ? AppTheme.secondaryDark : AppTheme.secondaryLight),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTypingIndicator(bool isDark) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: isDark ? AppTheme.cardDark : AppTheme.cardLight,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-          bottomRight: Radius.circular(16),
-          bottomLeft: Radius.circular(4),
-        ),
-        border: !isDark ? Border.all(color: Colors.grey.shade200) : null,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'AI is thinking',
-            style: TextStyle(
-              color: isDark ? AppTheme.textDark : AppTheme.textLight,
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(width: 8),
-          SizedBox(
-            width: 24,
-            height: 12,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(3, (index) {
-                return Container(
-                  width: 4,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: isDark ? AppTheme.accentGreen : AppTheme.primaryBlue,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                )
-                    .animate(onPlay: (controller) => controller.repeat())
-                    .scale(
-                      begin: const Offset(0.5, 0.5),
-                      end: const Offset(1.2, 1.2),
-                      duration: 600.ms,
-                      delay: (200 * index).ms,
-                      curve: Curves.easeInOut,
-                    );
-              }),
             ),
           ),
         ],
@@ -201,11 +144,11 @@ class ChatMessageWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
-                    .withOpacity(0.1),
+                    .withAlpha(10),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
-                      .withOpacity(0.3),
+                      .withAlpha(30),
                 ),
               ),
               child: Text(
@@ -236,11 +179,11 @@ class ChatMessageWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
-                    .withOpacity(0.1),
+                    .withAlpha(10),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: (isDark ? AppTheme.accentGreen : AppTheme.primaryBlue)
-                      .withOpacity(0.3),
+                      .withAlpha(30),
                 ),
               ),
               child: Text(

@@ -65,12 +65,12 @@ class _FeatureCardState extends State<FeatureCard> with SingleTickerProviderStat
                 color: isDark ? AppTheme.cardDark : AppTheme.cardLight,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: widget.feature.color.withOpacity(0.2),
+                  color: widget.feature.color.withAlpha(0.2),
                   width: 1,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: widget.feature.color.withOpacity(0.1),
+                    color: widget.feature.color.withAlpha(0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
@@ -85,7 +85,7 @@ class _FeatureCardState extends State<FeatureCard> with SingleTickerProviderStat
                       width: 48,
                       height: 48,
                       decoration: BoxDecoration(
-                        color: widget.feature.color.withOpacity(0.1),
+                        color: widget.feature.color.withAlpha(0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Icon(

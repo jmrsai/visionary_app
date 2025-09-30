@@ -60,8 +60,8 @@ class ProfileScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         gradient: LinearGradient(
           colors: [
-            isDark ? AppTheme.primaryBlue.withOpacity(0.2) : AppTheme.primaryBlue,
-            isDark ? AppTheme.accentGreen.withOpacity(0.3) : AppTheme.accentGreen,
+            isDark ? AppTheme.primaryBlue.withAlpha(0.2) : AppTheme.primaryBlue,
+            isDark ? AppTheme.accentGreen.withAlpha(0.3) : AppTheme.accentGreen,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -69,8 +69,8 @@ class ProfileScreen extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: isDark
-                ? AppTheme.primaryBlue.withOpacity(0.1)
-                : AppTheme.primaryBlue.withOpacity(0.2),
+                ? AppTheme.primaryBlue.withAlpha(0.1)
+                : AppTheme.primaryBlue.withAlpha(0.2),
             blurRadius: 15,
             offset: const Offset(0, 5),
           )
@@ -99,7 +99,7 @@ class ProfileScreen extends StatelessWidget {
                 Text(
                   'jane.doe@example.com',
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withAlpha(0.8),
                   ),
                 ),
               ],
